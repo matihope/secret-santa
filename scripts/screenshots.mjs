@@ -1,11 +1,10 @@
-// Generates README screenshots from demo data.
+// Generates README screenshots from demo data. Normally run via `npm run screenshots`
+// (scripts/screenshots.sh builds, starts a preview server on a fresh data dir and calls this).
+// Manual use against a running preview with an EMPTY data dir (the script creates parties):
 //
-//   npm run build
-//   DATABASE_URL=data-shots/santa.db DATA_DIR=data-shots SITE_ADMIN_PASSWORD=shots \
-//     COOKIE_SECURE=false npx vite preview --port 4174 &
 //   node scripts/screenshots.mjs [http://localhost:4174] [--compose-only]
 //
-// Writes docs/screenshots/*.webp. Use a fresh data dir: the script creates parties.
+// Writes docs/screenshots/*.webp.
 import { chromium } from '@playwright/test';
 import sharp from 'sharp';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';

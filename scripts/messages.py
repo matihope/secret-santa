@@ -97,7 +97,7 @@ M = {
  "nickname": ("Nickname", "Pseudonim"),
  "name_help": ("Give your name or a nickname the family will recognise.", "Podaj imię lub pseudonim, który rodzina rozpozna."),
  # party page
- "party_eyebrow": ("Secret Santa party", "Impreza Tajnego Mikołaja"),
+ "party_eyebrow": ("Secret Santa party", "Impreza Secret-Santa"),
  "gate_help": ("This party is secret. Enter the code you got from the organiser.", "Ta impreza jest tajna. Wpisz kod od organizatora."),
  "created_banner": ("Party created! Share this code with everyone:", "Impreza założona! Podaj ten kod wszystkim uczestnikom:"),
  "nav_party": ("Party", "Impreza"),
@@ -265,7 +265,7 @@ M = {
  "rule_handover_s": ("Gifts are handed over: {text}.", "Prezenty przekazujemy: {text}."),
  "rule_guess_santa_label": ("Guess your Santa", "Zgadnij Mikołaja"),
  "rule_guess_santa_q": ("Will everyone try to guess their Santa at the party?", "Czy na imprezie zgadujemy, kto był naszym Mikołajem?"),
- "rule_guess_santa_s": ("At the party everyone tries to guess who their Secret Santa was.", "Na imprezie każdy próbuje zgadnąć, kto był jego Tajnym Mikołajem."),
+ "rule_guess_santa_s": ("At the party everyone tries to guess who their Secret Santa was.", "Na imprezie każdy próbuje zgadnąć, kto był jego Mikołajem."),
  "rule_no_regifting_label": ("No regifting", "Bez przekazywania dalej"),
  "rule_no_regifting_q": ("Is regifting forbidden?", "Czy zakazujemy dawania otrzymanych wcześniej prezentów?"),
  "rule_no_regifting_s": ("No regifting!", "Nie dajemy prezentów, które sami kiedyś dostaliśmy!"),

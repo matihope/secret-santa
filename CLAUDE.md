@@ -32,6 +32,7 @@ before larger changes; append to the log when you finish a chunk of work.
 - `npx vitest run` — unit tests (`*.spec.ts`)
 - `npx playwright test` — e2e in `e2e/` (builds + previews on 4173 with `data-e2e/`);
   `PW_BASE_URL=… PW_ADMIN_PASSWORD=…` targets a running instance instead
+- `npm run screenshots` — regenerate README screenshots (build + throwaway preview + capture)
 - `docker compose up -d --build` — production (port 8976)
 
 ## Layout

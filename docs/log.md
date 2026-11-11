@@ -62,3 +62,7 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
 - App name is a brand constant (`src/lib/brand.ts`, "Secret Santa" in every language) instead
   of the `app_name` message; Polish no longer shows "Tajny Mikołaj" as the title. Descriptive
   Polish text (e.g. "Impreza Tajnego Mikołaja", rules) still uses the Polish term.
+- Polish party eyebrow is "Impreza Secret-Santa" (owner found "Impreza Tajnego Mikołaja"
+  silly); guess-your-Santa rule says just "Mikołajem".
+- `npm run screenshots` (`scripts/screenshots.sh`) automates build → throwaway preview on
+  :4174 with fresh `data-shots/` → capture → server shutdown.

@@ -101,7 +101,7 @@ The header has a language drop-down (flag + the language's own name), filled fro
    `src/lib/languages.ts` and a flag SVG to `static/flags/` — `npm run check` fails until the
    entry exists.
 
-Screenshots are generated from demo data by `scripts/screenshots.mjs` (see the header of the
-file for how to run it).
+Screenshots are generated from demo data: `npm run screenshots` builds the app, seeds a
+throwaway instance through the UI and rewrites `docs/screenshots/*.webp`.
 
 See `CLAUDE.md`, `docs/decisions.md` and `docs/log.md` for architecture notes.
