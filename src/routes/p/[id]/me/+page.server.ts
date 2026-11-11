@@ -14,6 +14,8 @@ import {
 import { getExclusions, getMembers, touchDraw } from '#lib/server/party.ts';
 import { newId } from '#lib/server/ids.ts';
 import type { Actions, PageServerLoad } from './$types';
+import { wishlistChanged } from '#lib/server/notifications.ts';
+import { subscribedEndpoints, vapidPublicKey } from '#lib/server/push.ts';
 
 export const load: PageServerLoad = (event) => {
 	const { party, me } = requireMember(event);
@@ -39,7 +41,8 @@ export const load: PageServerLoad = (event) => {
 		candidates: members.filter((x) => x.id !== me.id && !busyIds.has(x.id)).map(publicMember),
 		others: members.length - 1,
 		locked: !!party.drawnAt || !!party.archivedAt,
-		welcome: event.url.searchParams.has('welcome')
+		welcome: event.url.searchParams.has('welcome'),
+		push: { key: vapidPublicKey(), endpoints: subscribedEndpoints(me.id) }
 	};
 };
 
@@ -53,8 +56,13 @@ export const actions: Actions = {
 		const names = readNames(data);
 		const err = validateNames(names, party.id, me.id);
 		if (err) return fail(400, { section: 'profile', error: err });
+		const wishlist = formString(data, 'wishlist', 4000);
 		db.update(schema.members)
-			.set({ ...names, wishlist: formString(data, 'wishlist', 4000) })
+			.set({
+				...names,
+				wishlist,
+				wishlistChangedAt: wishlistChanged(party, me.wishlist, wishlist)
+			})
 			.where(eq(schema.members.id, me.id))
 			.run();
 		return ok('profile');

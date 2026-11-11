@@ -8,6 +8,7 @@
 	import Statute from '#lib/components/Statute.svelte';
 	import RevealCard from '#lib/components/RevealCard.svelte';
 	import Logo from '#lib/components/Logo.svelte';
+	import AddToCalendar from '#lib/components/AddToCalendar.svelte';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -58,6 +59,15 @@
 			<Countdown target={party.drawAt} label={m.countdown_draw()} />
 		{:else if party.drawnAt && party.partyAt && party.partyAt.getTime() > now}
 			<Countdown target={party.partyAt} label={m.countdown_party()} />
+		{/if}
+
+		{#if !party.archivedAt}
+			<div class="flex flex-wrap items-center gap-2">
+				<AddToCalendar {party} />
+				{#if data.me && !data.pushOn && !party.drawnAt}
+					<a href="/p/{party.id}/me#notifications" class="btn-ghost btn-sm">🔔 {m.push_nudge()}</a>
+				{/if}
+			</div>
 		{/if}
 
 		{#if !party.drawnAt && party.drawAt && party.drawAt.getTime() <= now && !party.archivedAt}

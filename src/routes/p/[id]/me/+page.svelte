@@ -4,6 +4,7 @@
 	import { errorText } from '#lib/errors.ts';
 	import { displayName } from '#lib/names.ts';
 	import Avatar from '#lib/components/Avatar.svelte';
+	import PushToggle from '#lib/components/PushToggle.svelte';
 	import type { PageProps } from './$types';
 	import type { SubmitFunction } from '$app/forms';
 
@@ -111,6 +112,8 @@
 	</section>
 
 	<div class="space-y-6">
+		<PushToggle partyId={data.party.id} vapidKey={data.push.key} endpoints={data.push.endpoints} />
+
 		<!-- exclusions -->
 		<section class="card">
 			<h2 class="text-2xl font-bold text-pine">💑 {m.exclusion_title()}</h2>

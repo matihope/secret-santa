@@ -57,3 +57,26 @@ Paraglide strategy: cookie → preferred language → base locale (`pl`). No URL
 storage separate from Safari, so the party-code and member cookies don't carry over — users
 log in again once inside the app. Accepted for the app-like feel. Because there is no browser
 chrome, every page must keep its own way back (header logo, party tabs, back links).
+
+## No home-screen widgets; calendar + push instead
+
+Android home-screen widgets need a native app (web "PWA widgets" only exist on Windows 11), so
+the countdown reaches people through their calendar (Google link / `.ics` with alarms) and
+Web Push.
+
+## Push notifications
+
+- Standard Web Push with VAPID; the key pair is generated on first use and kept in `settings`
+  (no configuration). Subject: `PUSH_SUBJECT` or `ORIGIN` (Apple rejects missing/invalid ones).
+- One subscription row per member per device, with the device's UI locale so texts are
+  translated. Unsubscribing only deletes our row — the browser subscription may serve other
+  parties on the same device.
+- Endpoints must be https on a known push service host (FCM, Apple, Mozilla, WNS): the URL comes
+  from the client and the server POSTs to it, so anything else would be an SSRF hole.
+  `PUSH_TEST_HOSTS` exists only for `npm run test:push`.
+- Reminders: 24 h before the draw / party (not within the last hour). `draw_reminder_for` /
+  `party_reminder_for` store the date the reminder was sent for, so changing the date re-arms it.
+- Wishlist changes after the draw set `members.wishlist_changed_at`; the scheduler notifies the
+  giver once it has been quiet for 2 minutes (one push per editing session). The text says
+  "your person", never the name, because notifications show on lock screens.
+- The service worker only handles push — no offline caching, party data must be fresh.

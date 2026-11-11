@@ -54,6 +54,12 @@ Organiser view — wishlists stay hidden until you really need them:
   (names, passcodes, admin flag, participation). Wishlists are hidden behind "Reveal" so admins
   don't spoil their own surprise. Archive / restore, delete. Nobody can see the assignments.
 - **Website admin** at `/admin` (password from `.env`) can see and manage every party.
+- **Add to calendar** — Google Calendar links for the draw and the party, or an `.ics` file
+  (iPhone, Outlook, Samsung…) with reminders.
+- **Push notifications** (turn on in *My profile*): when the draw happens, a day before the draw
+  (with a nudge if your wishlist is empty) and the party, and when the person you drew updates
+  their wishlist — without ever naming them on the lock screen. Works in Chrome/Firefox/Edge and
+  on iPhone once the app is added to the Home Screen (iOS 16.4+).
 - **Add to Home Screen** on iPhone/Android gives a proper icon and opens full screen like an
   app (on iOS you log in once more inside the app — it doesn't share Safari's cookies).
 
@@ -85,6 +91,7 @@ npm run dev               # http://localhost:5173 (uses ./data/santa.db)
 npm run check             # types
 npx vitest run            # unit tests
 npx playwright test       # end-to-end (builds and runs a preview server)
+npm run test:push         # push notifications against a fake push service (~4 min)
 PW_BASE_URL=http://localhost:8976 PW_ADMIN_PASSWORD=… npx playwright test   # against a running instance
 ```
 

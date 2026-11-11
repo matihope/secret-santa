@@ -1,4 +1,4 @@
-import { integer, primaryKey, sqliteTable, text, index } from 'drizzle-orm/sqlite-core';
+import { integer, primaryKey, sqliteTable, text, index, unique } from 'drizzle-orm/sqlite-core';
 
 const ts = (name: string) => integer(name, { mode: 'timestamp_ms' });
 const bool = (name: string) => integer(name, { mode: 'boolean' });
@@ -22,6 +22,9 @@ export const parties = sqliteTable('parties', {
 	drawError: text('draw_error'),
 	archivedAt: ts('archived_at'),
 	currency: text('currency').notNull().default('PLN'),
+	/** drawAt / partyAt value the 24 h reminder push was sent for (re-sent when the date changes). */
+	drawReminderFor: ts('draw_reminder_for'),
+	partyReminderFor: ts('party_reminder_for'),
 	createdAt: ts('created_at')
 		.notNull()
 		.$defaultFn(() => new Date())
@@ -42,6 +45,8 @@ export const members = sqliteTable(
 		avatar: text('avatar'),
 		isAdmin: bool('is_admin').notNull().default(false),
 		participates: bool('participates').notNull().default(true),
+		/** Set when the wishlist changes after the draw; the giver is notified once it settles. */
+		wishlistChangedAt: ts('wishlist_changed_at'),
 		createdAt: ts('created_at')
 			.notNull()
 			.$defaultFn(() => new Date())
@@ -108,6 +113,27 @@ export const sessions = sqliteTable('sessions', {
 	isSiteAdmin: bool('is_site_admin').notNull().default(false),
 	expiresAt: ts('expires_at').notNull()
 });
+
+export const pushSubscriptions = sqliteTable(
+	'push_subscriptions',
+	{
+		id: text('id').primaryKey(),
+		memberId: text('member_id')
+			.notNull()
+			.references(() => members.id, { onDelete: 'cascade' }),
+		endpoint: text('endpoint').notNull(),
+		p256dh: text('p256dh').notNull(),
+		auth: text('auth').notNull(),
+		locale: text('locale').notNull(),
+		createdAt: ts('created_at')
+			.notNull()
+			.$defaultFn(() => new Date())
+	},
+	(t) => [
+		unique('push_member_endpoint').on(t.memberId, t.endpoint),
+		index('push_member_idx').on(t.memberId)
+	]
+);
 
 export type Party = typeof parties.$inferSelect;
 export type Member = typeof members.$inferSelect;

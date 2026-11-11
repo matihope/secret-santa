@@ -73,6 +73,20 @@ test('full party lifecycle', async ({ browser }) => {
 	await expect(admin.getByText('Time left until the draw')).toBeVisible();
 	await expect(admin.getByText('Do not buy: alcohol.')).toBeVisible();
 
+	// --- calendar export
+	await admin.getByText('Add to calendar').click();
+	await expect(admin.getByRole('link', { name: /Google Calendar — the draw/ })).toHaveAttribute(
+		'href',
+		/calendar\.google\.com.*20351201T170000Z/
+	);
+	const ics = await (await admin.request.get(`${partyUrl}/calendar.ics`)).text();
+	expect(ics).toContain('SUMMARY:🎲 Secret Santa draw — E2E Christmas');
+	expect(ics).toContain('DTSTART:20351224T160000Z');
+	expect(ics).toContain('LOCATION:Grandma’s house');
+	const outsider = await browser.newContext();
+	expect((await outsider.request.get(`${partyUrl}/calendar.ics`)).status()).toBe(403);
+	await outsider.close();
+
 	// --- wrong code is rejected
 	const stranger = await (await browser.newContext({ locale: 'en-US' })).newPage();
 	await stranger.goto(partyUrl);

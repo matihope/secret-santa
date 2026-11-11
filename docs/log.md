@@ -83,3 +83,16 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
   "Add to Home Screen" people enter the party code and log in once more inside the app. Every
   page keeps in-app navigation (logo → home, party tabs, back links) since there is no browser
   back button.
+
+## 2026-11-12 — calendar export + push notifications
+
+- Owner asked for an Android countdown widget: not possible for a web app (needs a native app),
+  so instead: "Add to calendar" on the party page (Google links + `/p/[id]/calendar.ics`,
+  RFC 5545 with escaping, line folding and alarms; needs party access) and Web Push.
+- Push: subscribe/test/unsubscribe at `/p/[id]/push` (JSON only), toggle card on *My profile*,
+  nudge link on the party page until enabled; notifications for draw done, draw/party
+  reminders, and the giver when their person's wishlist changes (debounced 2 min). Migration
+  `0001_push.sql`. Badge icon `static/badge-96.png` from `npm run icons`.
+- Verified with `npm run test:push`: a fake push service on https://localhost:9443 decrypts
+  aes128gcm payloads; checks en/pl texts, VAPID headers, test push, draw push, single wishlist
+  push to the right giver without the name, SSRF rejection, no repeated reminders.

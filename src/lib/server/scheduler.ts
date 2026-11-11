@@ -1,5 +1,6 @@
 import { drawDueParties } from './party.ts';
 import { purgeExpiredSessions } from './auth.ts';
+import { sendDueNotifications } from './notifications.ts';
 
 let timer: ReturnType<typeof setInterval> | undefined;
 
@@ -12,6 +13,7 @@ export function startScheduler(intervalMs = 30_000) {
 		} catch (e) {
 			console.error('[scheduler] draw failed', e);
 		}
+		sendDueNotifications().catch((e) => console.error('[scheduler] notifications failed', e));
 	};
 	tick();
 	timer = setInterval(tick, intervalMs);

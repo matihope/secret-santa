@@ -3,6 +3,7 @@ import { grantCodeAccess, isRateLimited, logoutMember, recordFailure } from '#li
 import { getAssignment, getMembers, getParty, getRules } from '#lib/server/party.ts';
 import { formString, partyContext, publicMember } from '#lib/server/guards.ts';
 import { normalizeCode } from '#lib/server/ids.ts';
+import { subscribedEndpoints } from '#lib/server/push.ts';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (event) => {
@@ -13,7 +14,8 @@ export const load: PageServerLoad = (event) => {
 		rules: getRules(party.id),
 		members: getMembers(party.id).map(publicMember),
 		assignment: receiver ? { ...publicMember(receiver), wishlist: receiver.wishlist } : null,
-		created: event.url.searchParams.has('created')
+		created: event.url.searchParams.has('created'),
+		pushOn: me ? subscribedEndpoints(me.id).length > 0 : false
 	};
 };
 

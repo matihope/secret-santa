@@ -6,6 +6,7 @@ import { db, schema } from './db/index.ts';
 import { drawAssignments } from './draw.ts';
 import { newId, normalizeCode } from './ids.ts';
 import type { RuleEntry } from '#lib/rules/catalog.ts';
+import { notifyDrawn } from './notifications.ts';
 
 export const uploadsDir = () => join(DATA_DIR, 'uploads');
 
@@ -67,6 +68,12 @@ export function touchDraw(partyId: string) {
 export type DrawOutcome = 'ok' | 'too_few' | 'impossible';
 
 export function runDraw(partyId: string): DrawOutcome {
+	const outcome = drawInTransaction(partyId);
+	if (outcome === 'ok') notifyDrawn(partyId);
+	return outcome;
+}
+
+function drawInTransaction(partyId: string): DrawOutcome {
 	return db.transaction((tx) => {
 		const participants = tx
 			.select({ id: schema.members.id })

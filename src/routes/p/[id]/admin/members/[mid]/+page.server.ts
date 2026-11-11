@@ -13,6 +13,7 @@ import {
 import { deleteMember, getMembers, touchDraw } from '#lib/server/party.ts';
 import type { RequestEvent } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
+import { wishlistChanged } from '#lib/server/notifications.ts';
 
 function target(event: RequestEvent) {
 	const ctx = requireAdmin(event);
@@ -52,9 +53,11 @@ export const actions: Actions = {
 			if (!otherAdmins.length) return fail(400, { error: 'last_admin' });
 		}
 
+		const wishlist = formString(data, 'wishlist', 4000);
 		const update: Partial<typeof schema.members.$inferInsert> = {
 			...names,
-			wishlist: formString(data, 'wishlist', 4000),
+			wishlist,
+			wishlistChangedAt: wishlistChanged(party, member.wishlist, wishlist),
 			isAdmin,
 			participates
 		};

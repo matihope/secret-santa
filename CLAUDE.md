@@ -32,6 +32,7 @@ before larger changes; append to the log when you finish a chunk of work.
 - `npx vitest run` — unit tests (`*.spec.ts`)
 - `npx playwright test` — e2e in `e2e/` (builds + previews on 4173 with `data-e2e/`);
   `PW_BASE_URL=… PW_ADMIN_PASSWORD=…` targets a running instance instead
+- `npm run test:push` — push notifications end to end against a fake push service (~4 min)
 - `npm run icons` — re-render iPhone/Android home-screen icons from `src/lib/assets/favicon.svg`
 - `npm run screenshots` — regenerate README screenshots (build + throwaway preview + capture)
 - `docker compose up -d --build` — production (port 8976)
@@ -57,4 +58,8 @@ before larger changes; append to the log when you finish a chunk of work.
 - Wishlists in admin views are obscured until "Reveal" is clicked.
 - Logo lives in two places: `Logo.svelte` (animated) and `src/lib/assets/favicon.svg` (static
   copy) — keep them in sync, then `npm run icons`.
+- Push: `src/lib/server/push.ts` (VAPID keys in `settings`, delivery), `notifications.ts`
+  (what/when; called from `runDraw` and the scheduler tick), `src/service-worker.ts` (shows them).
+  Endpoints are allow-listed to real push services (`push-subscription.ts`, SSRF guard).
+  Notification text is visible on lock screens — never name the drawn person.
 - Times: UTC in DB, convert with `src/lib/time.ts` using the `TIMEZONE` env.
