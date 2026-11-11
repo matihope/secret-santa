@@ -43,3 +43,7 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
 
 - Owner's domain and LAN IP must not appear in the (public) repo — use placeholders like
   `santa.example.com` / `<server-lan-ip>`. Real values live only in the local `.env`.
+- README screenshots added (`scripts/screenshots.mjs`, demo data on a local preview build).
+- Clarified the `gift_count` rule: everyone still draws ONE person and prepares N gifts for
+  them (old wording "Each person gives N gifts" read like giving to N people). Unit tests in
+  `src/lib/rules/catalog.spec.ts` cover the sentence and Polish plurals.
