@@ -28,7 +28,7 @@
 					class="rounded-full px-4 py-1.5 text-sm font-semibold transition {page.url.pathname ===
 						tab.href ||
 					(tab.href !== base && page.url.pathname.startsWith(tab.href))
-						? 'bg-berry text-snow'
+						? 'bg-ribbon text-cream'
 						: 'text-ink-soft hover:text-ink'}">{tab.label}</a
 				>
 			{/each}

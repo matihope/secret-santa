@@ -56,7 +56,7 @@
 				role="radio"
 				aria-checked={value.option === opt.value}
 				class="btn border btn-sm {value.option === opt.value
-					? 'border-pine bg-pine text-snow'
+					? 'border-pine bg-holly text-cream'
 					: 'border-ink/15 bg-snow text-ink'}"
 				onclick={() => (value.option = opt.value)}>{opt.label()}</button
 			>

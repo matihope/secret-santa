@@ -30,7 +30,7 @@
 	</span>
 {:else}
 	<section
-		class="relative overflow-hidden rounded-[2rem] bg-pine px-4 py-7 text-snow shadow-[0_20px_50px_-25px_#0c2219] sm:px-8 sm:py-10"
+		class="relative overflow-hidden rounded-[2rem] bg-holly px-4 py-7 text-cream shadow-[0_20px_50px_-25px_#0c2219] sm:px-8 sm:py-10"
 		aria-live="off"
 	>
 		<div class="snow" aria-hidden="true">
@@ -48,7 +48,7 @@
 		<div class="relative mt-4 grid grid-cols-4 gap-2 sm:gap-4">
 			{#each parts as part, i (i)}
 				<div
-					class="min-w-0 rounded-2xl bg-snow/8 px-1 py-3 text-center ring-1 ring-snow/10 sm:py-5"
+					class="min-w-0 rounded-2xl bg-cream/8 px-1 py-3 text-center ring-1 ring-cream/10 sm:py-5"
 				>
 					<div
 						class="font-display leading-none font-black tabular-nums {String(part.value).length > 2
@@ -59,7 +59,7 @@
 						{i === 0 ? part.value : pad(part.value)}
 					</div>
 					<div
-						class="mt-2 text-[0.65rem] font-semibold tracking-widest text-snow/70 uppercase sm:text-xs"
+						class="mt-2 text-[0.65rem] font-semibold tracking-widest text-cream/70 uppercase sm:text-xs"
 					>
 						{part.label}
 					</div>

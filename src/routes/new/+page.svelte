@@ -99,9 +99,9 @@
 				<span
 					class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-bold transition {i <
 					step
-						? 'border-pine bg-pine text-snow'
+						? 'border-pine bg-holly text-cream'
 						: i === step
-							? 'border-berry bg-berry text-snow'
+							? 'border-berry bg-ribbon text-cream'
 							: 'border-ink/20 bg-snow text-ink-soft'}"
 					aria-current={i === step ? 'step' : undefined}
 					title={label()}>{i < step ? '✓' : i + 1}</span
@@ -218,7 +218,7 @@
 				<div class="flex flex-wrap gap-2">
 					<label
 						class="btn border btn-sm {codeMode === 'auto'
-							? 'border-pine bg-pine text-snow'
+							? 'border-pine bg-holly text-cream'
 							: 'border-ink/15 bg-snow'}"
 					>
 						<input
@@ -232,7 +232,7 @@
 					</label>
 					<label
 						class="btn border btn-sm {codeMode === 'custom'
-							? 'border-pine bg-pine text-snow'
+							? 'border-pine bg-holly text-cream'
 							: 'border-ink/15 bg-snow'}"
 					>
 						<input
@@ -274,7 +274,7 @@
 									role="radio"
 									aria-checked={a.on}
 									class="btn border btn-sm {a.on
-										? 'border-pine bg-pine text-snow'
+										? 'border-pine bg-holly text-cream'
 										: 'border-ink/15 bg-snow'}"
 									onclick={() => (a.on = true)}>{m.yes()}</button
 								>

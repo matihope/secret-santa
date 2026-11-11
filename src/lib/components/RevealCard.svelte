@@ -10,7 +10,7 @@
 </script>
 
 <section
-	class="relative overflow-hidden rounded-[2rem] border-4 border-gold-2 bg-berry p-6 text-snow shadow-[0_25px_50px_-25px_#5a1016] sm:p-8"
+	class="relative overflow-hidden rounded-[2rem] border-4 border-gold-2 bg-ribbon p-6 text-cream shadow-[0_25px_50px_-25px_#5a1016] sm:p-8"
 >
 	<div
 		class="pointer-events-none absolute inset-y-0 left-1/2 w-10 -translate-x-1/2 bg-gold-2/90"
@@ -26,16 +26,16 @@
 	{#if !open}
 		<div class="relative flex flex-col items-center gap-4 py-6 text-center">
 			<span class="text-6xl drop-shadow-lg" aria-hidden="true">🎁</span>
-			<p class="rounded-full bg-berry-2/90 px-4 py-1 font-display text-2xl font-bold">
+			<p class="rounded-full bg-ribbon-2/90 px-4 py-1 font-display text-2xl font-bold">
 				{m.reveal_title()}
 			</p>
 			<button
-				class="btn rounded-full bg-snow text-berry shadow-[0_3px_0_#e9c36a] hover:bg-paper"
+				class="btn rounded-full bg-cream text-ribbon shadow-[0_3px_0_#e9c36a] hover:bg-[#f7f0e3]"
 				onclick={() => (open = true)}
 			>
 				✨ {m.reveal_open()}
 			</button>
-			<p class="max-w-xs rounded-xl bg-berry-2/80 px-3 py-1 text-xs text-snow/90">
+			<p class="max-w-xs rounded-xl bg-ribbon-2/80 px-3 py-1 text-xs text-cream/90">
 				{m.reveal_hint()}
 			</p>
 		</div>
@@ -47,16 +47,18 @@
 				<div>
 					<p class="font-display text-4xl leading-none font-black">{displayName(receiver)}</p>
 					{#if fullName(receiver) !== displayName(receiver)}
-						<p class="mt-1 text-snow/80">{fullName(receiver)}</p>
+						<p class="mt-1 text-cream/80">{fullName(receiver)}</p>
 					{/if}
 				</div>
 			</div>
-			<div class="mt-6 rounded-2xl bg-snow p-4 text-ink">
-				<p class="text-xs font-bold tracking-wider text-berry uppercase">📝 {m.their_wishlist()}</p>
+			<div class="mt-6 rounded-2xl bg-cream p-4 text-[#2b1d17]">
+				<p class="text-xs font-bold tracking-wider text-ribbon uppercase">
+					📝 {m.their_wishlist()}
+				</p>
 				<p class="mt-2 whitespace-pre-wrap">{receiver.wishlist || m.wishlist_empty_theirs()}</p>
 			</div>
 			<button
-				class="mt-4 text-sm font-semibold text-snow/80 underline underline-offset-2"
+				class="mt-4 text-sm font-semibold text-cream/80 underline underline-offset-2"
 				onclick={() => (open = false)}
 			>
 				🙈 {m.reveal_close()}

@@ -89,7 +89,7 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
 - Owner asked for an Android countdown widget: not possible for a web app (needs a native app),
   so instead: "Add to calendar" on the party page (Google links + `/p/[id]/calendar.ics`,
   RFC 5545 with escaping, line folding and alarms; needs party access) and Web Push.
-- Push: subscribe/test/unsubscribe at `/p/[id]/push` (JSON only), toggle card on *My profile*,
+- Push: subscribe/test/unsubscribe at `/p/[id]/push` (JSON only), toggle card on _My profile_,
   nudge link on the party page until enabled; notifications for draw done, draw/party
   reminders, and the giver when their person's wishlist changes (debounced 2 min). Migration
   `0001_push.sql`. Badge icon `static/badge-96.png` from `npm run icons`.
@@ -97,3 +97,17 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
   aes128gcm payloads; checks en/pl texts, VAPID headers, test push, draw push, single wishlist
   push to the right giver without the name, SSRF rejection, no repeated reminders.
 - Owner confirmed push notifications working on a real iPhone (home-screen app) and Android.
+
+## 2026-11-11 — dark theme
+
+- Dark palette (night-time pine) for every page; follows the device by default, header switch
+  cycles automatic → light → dark (`theme` cookie). Details and token rules in
+  `docs/decisions.md` → "Dark theme".
+- Dark Reader stands down on our dark theme (`darkreader-lock` + `color-scheme: dark`) and keeps
+  working on the light theme. Owner's request; a run with the real extension in Playwright was
+  not possible here (loading a downloaded extension was blocked), behaviour taken from the
+  extension source.
+- `@tailwindcss/forms` hard-codes white unchecked checkboxes → overridden in base layer.
+- `e2e/theme.e2e.ts` covers device following, the switch, reload, cookie and the lock tag.
+  `npm run screenshots` now also writes `docs/screenshots/dark.webp` plus `data-shots/tmp/dark-*.png`
+  review shots of other pages.

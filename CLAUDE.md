@@ -62,4 +62,7 @@ before larger changes; append to the log when you finish a chunk of work.
   (what/when; called from `runDraw` and the scheduler tick), `src/service-worker.ts` (shows them).
   Endpoints are allow-listed to real push services (`push-subscription.ts`, SSRF guard).
   Notification text is visible on lock screens — never name the drawn person.
+- Dark theme: colours are `light-dark()` tokens in `layout.css`. Filled backgrounds with light
+  text use `bg-holly`/`bg-ribbon` + `text-cream` (fixed); `pine`/`berry` are text/tint accents
+  that lighten in the dark; `snow` is the surface colour. Check new UI in both themes.
 - Times: UTC in DB, convert with `src/lib/time.ts` using the `TIMEZONE` env.

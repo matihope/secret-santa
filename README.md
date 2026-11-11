@@ -35,6 +35,10 @@ Organiser view — wishlists stay hidden until you really need them:
 
 ![Home page with the party code box and party list](docs/screenshots/home.webp)
 
+After dark — follows the device, or pick light/dark with the switch in the header:
+
+![Party page in the dark theme](docs/screenshots/dark.webp)
+
 ## All features
 
 - **Parties behind a code** — every party has a "Christmas Party Code" (random like `K7QM-4XPA`
@@ -56,12 +60,15 @@ Organiser view — wishlists stay hidden until you really need them:
 - **Website admin** at `/admin` (password from `.env`) can see and manage every party.
 - **Add to calendar** — Google Calendar links for the draw and the party, or an `.ics` file
   (iPhone, Outlook, Samsung…) with reminders.
-- **Push notifications** (turn on in *My profile*): when the draw happens, a day before the draw
+- **Push notifications** (turn on in _My profile_): when the draw happens, a day before the draw
   (with a nudge if your wishlist is empty) and the party, and when the person you drew updates
   their wishlist — without ever naming them on the lock screen. Works in Chrome/Firefox/Edge and
   on iPhone once the app is added to the Home Screen (iOS 16.4+).
 - **Add to Home Screen** on iPhone/Android gives a proper icon and opens full screen like an
   app (on iOS you log in once more inside the app — it doesn't share Safari's cookies).
+- **Dark theme** — follows the device by default; the ◐ switch in the header cycles
+  automatic → light → dark (remembered per browser). Dark Reader users: the extension
+  recognises the built-in dark theme and steps aside; in light mode it works as usual.
 
 ## Running
 

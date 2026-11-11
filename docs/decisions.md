@@ -80,3 +80,22 @@ Web Push.
   giver once it has been quiet for 2 minutes (one push per editing session). The text says
   "your person", never the name, because notifications show on lock screens.
 - The service worker only handles push — no offline caching, party data must be fresh.
+
+## Dark theme
+
+- Colour tokens in `layout.css` are `light-dark(light, dark)` pairs, so the whole palette flips
+  with `color-scheme`; no `dark:` classes needed. `html[data-theme]` sets the scheme and is
+  applied before first paint by an inline script in `src/app.html` (cookie `theme`, else the
+  device's `prefers-color-scheme`). `src/lib/theme.ts` holds the same logic for the switch —
+  keep both in sync.
+- Two kinds of accent tokens: `pine`/`berry` are for text, borders and tints and get lighter in
+  the dark; `holly`/`ribbon` are solid fills under `cream` text and stay deep. Use
+  `bg-holly|bg-ribbon text-cream` for filled buttons/badges, never `bg-pine text-snow`.
+  `snow` is the card/input surface (dark in dark mode), not "white".
+- Dark Reader: when our page is dark we add `<meta name="darkreader-lock">` (Dark Reader
+  removes its theme when it appears, even later — checked in its 4.9.135 source) and computed
+  `color-scheme: dark` (what its optional "Detect dark theme" checks). When our page is light
+  there is no lock, so people who use Dark Reader still get their dark page. We do not sniff for
+  the extension.
+- Choice cookie is not httpOnly (the pre-paint script reads it); `+layout.server.ts` passes it
+  to the switch so the right icon is server-rendered.

@@ -24,7 +24,7 @@
 
 <article class="relative overflow-hidden card">
 	<div
-		class="pointer-events-none absolute inset-x-0 top-0 h-2 bg-[repeating-linear-gradient(90deg,var(--color-berry)_0_14px,var(--color-snow)_14px_28px)]"
+		class="pointer-events-none absolute inset-x-0 top-0 h-2 bg-[repeating-linear-gradient(90deg,var(--color-ribbon)_0_14px,var(--color-snow)_14px_28px)]"
 		aria-hidden="true"
 	></div>
 	<p class="mt-2 eyebrow">{m.statute_eyebrow()}</p>
@@ -56,7 +56,7 @@
 			{#each rules as rule, i (i)}
 				<li class="flex gap-3">
 					<span
-						class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-berry font-display text-sm font-bold text-snow"
+						class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ribbon font-display text-sm font-bold text-cream"
 						>{i + 1}</span
 					>
 					<p class="pt-0.5 leading-relaxed">

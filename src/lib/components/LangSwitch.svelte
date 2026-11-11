@@ -64,7 +64,11 @@
 		<img src={LANGUAGES[current].flag} alt="" class="flag" />
 		<span class="uppercase sm:hidden">{current}</span>
 		<span class="hidden sm:inline">{LANGUAGES[current].name}</span>
-		<svg viewBox="0 0 12 12" class="size-3 transition {open ? 'rotate-180' : ''}" aria-hidden="true">
+		<svg
+			viewBox="0 0 12 12"
+			class="size-3 transition {open ? 'rotate-180' : ''}"
+			aria-hidden="true"
+		>
 			<path
 				d="M3 4.5 6 7.5 9 4.5"
 				fill="none"

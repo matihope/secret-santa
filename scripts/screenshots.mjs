@@ -351,6 +351,30 @@ if (!COMPOSE_ONLY) {
 	await settle(plPage);
 	mobPl = await plPage.screenshot();
 
+	/* ---------- dark theme (follows the device setting) ---------- */
+
+	await admin.emulateMedia({ colorScheme: 'dark' });
+	await admin.goto(BASE + famParty.url);
+	await shot(admin, 'dark');
+	// extra pages, not in the README — handy for eyeballing the dark palette
+	const review = {
+		home: '/',
+		wizard: '/new',
+		admin: famParty.url + '/admin',
+		me: famParty.url + '/me'
+	};
+	for (const [n, path] of Object.entries(review)) {
+		await admin.goto(BASE + path);
+		await settle(admin);
+		writeFileSync(join(TMP, `dark-${n}.png`), await admin.screenshot({ fullPage: true }));
+	}
+	await kasia.emulateMedia({ colorScheme: 'dark' });
+	await kasia.reload();
+	await kasia.getByRole('button', { name: /Unwrap/ }).click();
+	await settle(kasia);
+	writeFileSync(join(TMP, 'dark-reveal.png'), await kasia.screenshot({ fullPage: true }));
+	await admin.emulateMedia({ colorScheme: 'light' });
+
 	for (const [n, b] of Object.entries({
 		heroDesktop,
 		mobGift,

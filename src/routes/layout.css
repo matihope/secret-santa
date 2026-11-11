@@ -3,21 +3,33 @@
 @import '@fontsource-variable/bricolage-grotesque/index.css';
 @plugin '@tailwindcss/forms';
 
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
 @theme {
 	--font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
 	--font-sans: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
 
-	--color-paper: #f7f0e3;
-	--color-paper-2: #efe4cf;
-	--color-ink: #2b1d17;
-	--color-ink-soft: #6b5a4e;
-	--color-pine: #17382a;
-	--color-pine-2: #24523d;
-	--color-berry: #b4232f;
-	--color-berry-2: #8f1a24;
+	/* Every colour adapts to the active scheme via light-dark(); the scheme comes from
+	   html[data-theme] (set before first paint by the script in app.html). */
+	--color-paper: light-dark(#f7f0e3, #111a15);
+	--color-paper-2: light-dark(#efe4cf, #1f2b24);
+	--color-ink: light-dark(#2b1d17, #f1e8da);
+	--color-ink-soft: light-dark(#6b5a4e, #b4a897);
+	--color-snow: light-dark(#fffdf8, #18231d); /* card / input surface */
+	/* accents used as text, borders and tints: lighter in the dark */
+	--color-pine: light-dark(#17382a, #8fcfa6);
+	--color-pine-2: light-dark(#24523d, #a9dcbb);
+	--color-berry: light-dark(#b4232f, #f2747c);
+	--color-berry-2: light-dark(#8f1a24, #ff9aa0);
 	--color-gold: #c8962b;
 	--color-gold-2: #e9c36a;
-	--color-snow: #fffdf8;
+	/* solid fills that carry cream text: stay deep in both schemes */
+	--color-holly: light-dark(#17382a, #1f4a36);
+	--color-holly-2: light-dark(#24523d, #2a5e45);
+	--color-ribbon: #b4232f;
+	--color-ribbon-2: #8f1a24;
+	--color-cream: #fffdf8; /* text on holly / ribbon */
+	--color-sheen: light-dark(#fff, rgb(255 255 255 / 0.05));
 
 	--animate-rise: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 	--animate-wiggle: wiggle 2.8s ease-in-out infinite;
@@ -60,6 +72,16 @@
 }
 
 @layer base {
+	:root {
+		color-scheme: light dark;
+	}
+	:root[data-theme='light'] {
+		color-scheme: light;
+	}
+	/* color-scheme: dark is also what Dark Reader's "Detect dark theme" looks for */
+	:root[data-theme='dark'] {
+		color-scheme: dark;
+	}
 	html {
 		background-color: var(--color-paper);
 		color: var(--color-ink);
@@ -77,6 +99,15 @@
 				color-mix(in oklab, var(--color-berry) 4%, transparent) 38px 40px
 			);
 	}
+	[data-theme='dark'] body {
+		background-image:
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .85 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+			repeating-linear-gradient(
+				-45deg,
+				transparent 0 38px,
+				color-mix(in oklab, var(--color-berry) 5%, transparent) 38px 40px
+			);
+	}
 	h1,
 	h2,
 	h3 {
@@ -86,9 +117,15 @@
 			'WONK' 1;
 		letter-spacing: -0.01em;
 	}
+	/* @tailwindcss/forms paints unchecked boxes white */
+	[type='checkbox']:not(:checked),
+	[type='radio']:not(:checked) {
+		background-color: var(--color-snow);
+		border-color: color-mix(in oklab, var(--color-ink) 35%, transparent);
+	}
 	::selection {
 		background: var(--color-gold-2);
-		color: var(--color-ink);
+		color: #2b1d17;
 	}
 	:focus-visible {
 		outline: 3px solid var(--color-gold);
@@ -97,22 +134,22 @@
 }
 
 @utility card {
-	@apply rounded-3xl border border-ink/10 bg-snow/90 p-5 shadow-[0_1px_0_#fff_inset,0_10px_30px_-18px_rgb(43_29_23/.45)] backdrop-blur-sm sm:p-7;
+	@apply rounded-3xl border border-ink/10 bg-snow/90 p-5 shadow-[0_1px_0_var(--color-sheen)_inset,0_10px_30px_-18px_rgb(43_29_23/.45)] backdrop-blur-sm sm:p-7;
 }
 @utility btn {
 	@apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-2.5 font-semibold transition select-none active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50;
 }
 @utility btn-primary {
-	@apply btn bg-berry text-snow shadow-[0_3px_0_var(--color-berry-2)] hover:bg-berry-2;
+	@apply btn bg-ribbon text-cream shadow-[0_3px_0_var(--color-ribbon-2)] hover:bg-ribbon-2;
 }
 @utility btn-pine {
-	@apply btn bg-pine text-snow shadow-[0_3px_0_#0c2219] hover:bg-pine-2;
+	@apply btn bg-holly text-cream shadow-[0_3px_0_#0c2219] hover:bg-holly-2;
 }
 @utility btn-ghost {
 	@apply btn border border-ink/15 bg-snow/60 text-ink hover:bg-paper-2;
 }
 @utility btn-danger {
-	@apply btn border border-berry/40 bg-snow text-berry hover:bg-berry hover:text-snow;
+	@apply btn border border-berry/40 bg-snow text-berry hover:border-ribbon hover:bg-ribbon hover:text-cream;
 }
 @utility btn-sm {
 	@apply px-3.5 py-1.5 text-sm;

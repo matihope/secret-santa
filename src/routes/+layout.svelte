@@ -4,10 +4,11 @@
 	import favicon from '#lib/assets/favicon.svg';
 	import Logo from '#lib/components/Logo.svelte';
 	import LangSwitch from '#lib/components/LangSwitch.svelte';
+	import ThemeSwitch from '#lib/components/ThemeSwitch.svelte';
 	import { m } from '#lib/paraglide/messages.js';
 	import type { LayoutProps } from './$types';
 
-	let { children }: LayoutProps = $props();
+	let { children, data }: LayoutProps = $props();
 </script>
 
 <svelte:head>
@@ -30,7 +31,10 @@
 				>
 			</span>
 		</a>
-		<LangSwitch />
+		<div class="flex items-center gap-2">
+			<ThemeSwitch initial={data.theme} />
+			<LangSwitch />
+		</div>
 	</header>
 
 	<main class="flex-1 pb-16">
