@@ -96,3 +96,4 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
 - Verified with `npm run test:push`: a fake push service on https://localhost:9443 decrypts
   aes128gcm payloads; checks en/pl texts, VAPID headers, test push, draw push, single wishlist
   push to the right giver without the name, SSRF rejection, no repeated reminders.
+- Owner confirmed push notifications working on a real iPhone (home-screen app) and Android.
