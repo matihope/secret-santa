@@ -30,4 +30,14 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
 - Verified: `npm run check` clean, unit tests (draw) pass, Playwright e2e passes against the
   preview build and against the Docker image (create → join ×3 → avatar → couple exclusion →
   obscured wishlist → draw → valid reveals → join locked → archive/unarchive → PL; site admin).
-- Not done yet: NPM proxy host for santa.example.com (to set up together with the owner).
+
+## 2026-11-11 — deployed
+
+- Production `.env` written (random `SITE_ADMIN_PASSWORD`, `ORIGIN=https://santa.example.com`,
+  `ADDRESS_HEADER=X-Forwarded-For`), `docker compose up -d --build`, container on :8976.
+- Owner added NPM proxy host `santa.example.com` → `http://<server-lan-ip>:8976` with the
+  `*.example.com` cert. Verified over public HTTPS: valid cert + HTTP/2, form POSTs pass the
+  origin check, cookies `Secure; HttpOnly; SameSite=Lax`, 7.9 MB photo upload goes through
+  NPM and is resized; throwaway test party deleted afterwards (DB left empty).
+- Note: public port 80 times out for every example.com host (same for `tv`), so the HTTP→HTTPS
+  redirect can't be observed from outside; on the LAN :80 serves plain HTTP for both hosts.
