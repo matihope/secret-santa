@@ -43,63 +43,36 @@
 			<rect x="24" y="40" width="72" height="12" rx="6" fill="#fffdf8" />
 			<circle cx="101" cy="34" r="7.5" fill="#fffdf8" />
 		</g>
-		<!-- eyebrows: one raised, suspicious -->
+		<!-- bandit mask: a secret agent of gifts -->
 		<path
-			d="M33 66 Q 41 60 50 64"
-			stroke="#2b1d17"
-			stroke-width="3"
-			fill="none"
-			stroke-linecap="round"
+			class="ties"
+			d="M96 71 q 10 -2 16 4 q -8 -1 -14 2 z M96 74 q 9 3 12 10 q -6 -4 -13 -5 z"
+			fill="#2b1d17"
 		/>
 		<path
-			d="M70 66 Q 79 66 87 66"
-			stroke="#2b1d17"
-			stroke-width="3"
-			fill="none"
-			stroke-linecap="round"
+			d="M24 71 C 28 62, 50 62, 60 68 C 70 62, 92 62, 96 71 C 98 81, 88 88, 76 86 C 68 85, 64 80, 60 80 C 56 80, 52 85, 44 86 C 32 88, 22 81, 24 71 Z"
+			fill="#2b1d17"
 		/>
 		<!-- eyes -->
-		<ellipse cx="41" cy="76" rx="8.5" ry="9.5" fill="#fffdf8" />
-		<ellipse cx="79" cy="76" rx="8.5" ry="9.5" fill="#fffdf8" />
+		<ellipse cx="42" cy="75" rx="7.5" ry="6.5" fill="#fffdf8" />
+		<ellipse cx="78" cy="75" rx="7.5" ry="6.5" fill="#fffdf8" />
 		<g class="pupils">
-			<circle cx="45" cy="78" r="4" fill="#2b1d17" />
-			<circle cx="83" cy="78" r="4" fill="#2b1d17" />
-			<circle cx="46.3" cy="76.6" r="1.2" fill="#fffdf8" />
-			<circle cx="84.3" cy="76.6" r="1.2" fill="#fffdf8" />
+			<circle cx="45" cy="76" r="3.5" fill="#2b1d17" />
+			<circle cx="81" cy="76" r="3.5" fill="#2b1d17" />
+			<circle cx="46.3" cy="74.6" r="1.05" fill="#fffdf8" />
+			<circle cx="82.3" cy="74.6" r="1.05" fill="#fffdf8" />
 		</g>
 		<!-- cheeks -->
-		<circle cx="32" cy="90" r="5" fill="#ff8a8a" opacity=".45" />
-		<circle cx="88" cy="90" r="5" fill="#ff8a8a" opacity=".45" />
-		<!-- zipped mouth: lips sealed -->
-		<g class="zip">
-			<path
-				d="M42 91 Q 60 98 78 90"
-				stroke="#2b1d17"
-				stroke-width="6"
-				fill="none"
-				stroke-linecap="round"
-			/>
-			<path
-				d="M42 91 Q 60 98 78 90"
-				stroke="#e9c36a"
-				stroke-width="2.6"
-				stroke-dasharray="1.8 2.2"
-				fill="none"
-			/>
-			<g class="pull">
-				<circle cx="79" cy="90" r="3" fill="#e9c36a" stroke="#2b1d17" stroke-width="1.6" />
-				<rect
-					x="76"
-					y="92"
-					width="6"
-					height="10"
-					rx="2.5"
-					fill="#e9c36a"
-					stroke="#2b1d17"
-					stroke-width="1.6"
-				/>
-			</g>
-		</g>
+		<circle cx="32" cy="93" r="5" fill="#ff8a8a" opacity=".45" />
+		<circle cx="88" cy="93" r="5" fill="#ff8a8a" opacity=".45" />
+		<!-- sly smile -->
+		<path
+			d="M50 96 Q 60 100 70 95"
+			stroke="#2b1d17"
+			stroke-width="3"
+			fill="none"
+			stroke-linecap="round"
+		/>
 	</g>
 </svg>
 
@@ -114,24 +87,24 @@
 	.animated .pupils {
 		animation: shifty 4s ease-in-out infinite;
 	}
-	.animated .pull {
-		transform-origin: 79px 90px;
-		animation: swing 3.2s ease-in-out infinite;
+	.animated .ties {
+		transform-origin: 96px 72px;
+		animation: flutter 3.2s ease-in-out infinite;
 	}
-	@keyframes swing {
+	@keyframes flutter {
 		0%,
 		72%,
 		100% {
 			transform: rotate(0);
 		}
 		78% {
-			transform: rotate(18deg);
+			transform: rotate(14deg);
 		}
 		86% {
-			transform: rotate(-14deg);
+			transform: rotate(-10deg);
 		}
 		94% {
-			transform: rotate(6deg);
+			transform: rotate(4deg);
 		}
 	}
 	@keyframes shifty {
@@ -141,7 +114,7 @@
 		}
 		42%,
 		62% {
-			transform: translateX(-7px);
+			transform: translateX(-6px);
 		}
 		70%,
 		100% {
@@ -167,7 +140,7 @@
 	@media (prefers-reduced-motion: reduce) {
 		.animated .body,
 		.animated .pupils,
-		.animated .pull {
+		.animated .ties {
 			animation: none;
 		}
 	}

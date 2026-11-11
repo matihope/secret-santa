@@ -66,3 +66,5 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
   silly); guess-your-Santa rule says just "Mikołajem".
 - `npm run screenshots` (`scripts/screenshots.sh`) automates build → throwaway preview on
   :4174 with fresh `data-shots/` → capture → server shutdown.
+- Logo: owner picked the "bandit mask" candidate out of 10 (gift in a Santa hat wearing a
+  domino mask with fluttering ties, shifty eyes, sly smile). Replaces the zipper mouth.
