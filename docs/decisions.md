@@ -50,3 +50,10 @@ using `src/lib/time.ts` (no date library).
 ## Locale
 
 Paraglide strategy: cookie → preferred language → base locale (`pl`). No URL prefixes.
+
+## Home-screen app opens full screen
+
+`static/manifest.webmanifest` uses `display: "standalone"`. On iOS a standalone web app has
+storage separate from Safari, so the party-code and member cookies don't carry over — users
+log in again once inside the app. Accepted for the app-like feel. Because there is no browser
+chrome, every page must keep its own way back (header logo, party tabs, back links).

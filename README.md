@@ -54,6 +54,8 @@ Organiser view — wishlists stay hidden until you really need them:
   (names, passcodes, admin flag, participation). Wishlists are hidden behind "Reveal" so admins
   don't spoil their own surprise. Archive / restore, delete. Nobody can see the assignments.
 - **Website admin** at `/admin` (password from `.env`) can see and manage every party.
+- **Add to Home Screen** on iPhone/Android gives a proper icon and opens full screen like an
+  app (on iOS you log in once more inside the app — it doesn't share Safari's cookies).
 
 ## Running
 

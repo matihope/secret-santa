@@ -78,3 +78,8 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
   member id, so the face is stable across renames) instead of coloured initials. Same
   generator draws the README demo avatars (`scripts/screenshots.mjs` imports the .ts file via
   Node type stripping).
+- Home-screen app now opens full screen (`display: "standalone"` + apple-mobile-web-app-capable),
+  on the owner's request. Trade-off: iOS gives a home-screen app its own cookie jar, so after
+  "Add to Home Screen" people enter the party code and log in once more inside the app. Every
+  page keeps in-app navigation (logo → home, party tabs, back links) since there is no browser
+  back button.
