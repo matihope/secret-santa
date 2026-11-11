@@ -1,0 +1,137 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/fraunces/full.css';
+@import '@fontsource-variable/bricolage-grotesque/index.css';
+@plugin '@tailwindcss/forms';
+
+@theme {
+	--font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+	--font-sans: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+
+	--color-paper: #f7f0e3;
+	--color-paper-2: #efe4cf;
+	--color-ink: #2b1d17;
+	--color-ink-soft: #6b5a4e;
+	--color-pine: #17382a;
+	--color-pine-2: #24523d;
+	--color-berry: #b4232f;
+	--color-berry-2: #8f1a24;
+	--color-gold: #c8962b;
+	--color-gold-2: #e9c36a;
+	--color-snow: #fffdf8;
+
+	--animate-rise: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+	--animate-wiggle: wiggle 2.8s ease-in-out infinite;
+	--animate-fall: fall linear infinite;
+
+	@keyframes rise {
+		from {
+			opacity: 0;
+			transform: translateY(14px);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+	@keyframes wiggle {
+		0%,
+		70%,
+		100% {
+			transform: rotate(0);
+		}
+		75% {
+			transform: rotate(-6deg);
+		}
+		82% {
+			transform: rotate(5deg);
+		}
+		90% {
+			transform: rotate(-2deg);
+		}
+	}
+	@keyframes fall {
+		from {
+			transform: translate3d(0, -10%, 0);
+		}
+		to {
+			transform: translate3d(var(--drift, 20px), 110vh, 0);
+		}
+	}
+}
+
+@layer base {
+	html {
+		background-color: var(--color-paper);
+		color: var(--color-ink);
+		font-family: var(--font-sans);
+		-webkit-tap-highlight-color: transparent;
+	}
+	body {
+		min-height: 100dvh;
+		/* paper grain + faint wrapping-paper stripes */
+		background-image:
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .17 0 0 0 0 .11 0 0 0 0 .09 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+			repeating-linear-gradient(
+				-45deg,
+				transparent 0 38px,
+				color-mix(in oklab, var(--color-berry) 4%, transparent) 38px 40px
+			);
+	}
+	h1,
+	h2,
+	h3 {
+		font-family: var(--font-display);
+		font-variation-settings:
+			'SOFT' 100,
+			'WONK' 1;
+		letter-spacing: -0.01em;
+	}
+	::selection {
+		background: var(--color-gold-2);
+		color: var(--color-ink);
+	}
+	:focus-visible {
+		outline: 3px solid var(--color-gold);
+		outline-offset: 2px;
+	}
+}
+
+@utility card {
+	@apply rounded-3xl border border-ink/10 bg-snow/90 p-5 shadow-[0_1px_0_#fff_inset,0_10px_30px_-18px_rgb(43_29_23/.45)] backdrop-blur-sm sm:p-7;
+}
+@utility btn {
+	@apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-2.5 font-semibold transition select-none active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+	@apply btn bg-berry text-snow shadow-[0_3px_0_var(--color-berry-2)] hover:bg-berry-2;
+}
+@utility btn-pine {
+	@apply btn bg-pine text-snow shadow-[0_3px_0_#0c2219] hover:bg-pine-2;
+}
+@utility btn-ghost {
+	@apply btn border border-ink/15 bg-snow/60 text-ink hover:bg-paper-2;
+}
+@utility btn-danger {
+	@apply btn border border-berry/40 bg-snow text-berry hover:bg-berry hover:text-snow;
+}
+@utility btn-sm {
+	@apply px-3.5 py-1.5 text-sm;
+}
+@utility input {
+	@apply w-full rounded-2xl border-ink/15 bg-snow px-4 py-2.5 text-ink shadow-inner placeholder:text-ink-soft/60 focus:border-gold focus:ring-gold;
+}
+@utility label {
+	@apply mb-1.5 block text-sm font-semibold text-ink-soft;
+}
+@utility eyebrow {
+	@apply text-xs font-bold tracking-[0.2em] text-berry uppercase;
+}
+@utility chip {
+	@apply inline-flex items-center gap-1 rounded-full bg-paper-2 px-2.5 py-0.5 text-xs font-semibold text-ink-soft;
+}
+@utility error {
+	@apply rounded-2xl border border-berry/30 bg-berry/10 px-4 py-2.5 text-sm font-medium text-berry-2;
+}
+@utility success {
+	@apply rounded-2xl border border-pine/30 bg-pine/10 px-4 py-2.5 text-sm font-medium text-pine;
+}
