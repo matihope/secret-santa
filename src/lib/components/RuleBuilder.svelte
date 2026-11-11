@@ -2,7 +2,7 @@
 	import { RULES, RULES_BY_TYPE, ruleSentence, type RuleEntry } from '#lib/rules/catalog.ts';
 	import { m } from '#lib/paraglide/messages.js';
 	import { TIMEZONE } from '$app/env/public';
-	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { language } from '#lib/languages.ts';
 	import RuleValueInput from './RuleValueInput.svelte';
 
 	let {
@@ -15,7 +15,7 @@
 		RULES.filter((r) => r.type === 'custom' || !rules.some((x) => x.type === r.type))
 	);
 	let adding = $state('');
-	const [open, close] = getLocale() === 'pl' ? ['„', '”'] : ['“', '”'];
+	const [open, close] = language().quotes;
 
 	function add() {
 		const def = RULES_BY_TYPE.get(adding);

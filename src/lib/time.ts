@@ -1,3 +1,5 @@
+import { language } from './languages.ts';
+
 /** Offset (ms) of `tz` relative to UTC at instant `date`. */
 function tzOffset(date: Date, tz: string): number {
 	const parts = new Intl.DateTimeFormat('en-US', {
@@ -43,7 +45,7 @@ export function toInputValue(date: Date | null | undefined, tz: string): string 
 
 export function formatDateTime(date: Date | null | undefined, locale: string, tz: string): string {
 	if (!date) return '';
-	return new Intl.DateTimeFormat(locale === 'pl' ? 'pl-PL' : 'en-GB', {
+	return new Intl.DateTimeFormat(language(locale).intl, {
 		timeZone: tz,
 		weekday: 'long',
 		day: 'numeric',
@@ -56,7 +58,7 @@ export function formatDateTime(date: Date | null | undefined, locale: string, tz
 
 export function formatDate(date: Date | null | undefined, locale: string, tz: string): string {
 	if (!date) return '';
-	return new Intl.DateTimeFormat(locale === 'pl' ? 'pl-PL' : 'en-GB', {
+	return new Intl.DateTimeFormat(language(locale).intl, {
 		timeZone: tz,
 		day: 'numeric',
 		month: 'short',

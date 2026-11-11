@@ -383,7 +383,8 @@ if (!COMPOSE_ONLY) {
 	const plPage = await plCtx.newPage();
 	await plCtx.addCookies(await famMembers.zosia.ctx.cookies());
 	await plPage.goto(BASE + famParty.url);
-	await plPage.getByRole('button', { name: 'pl', exact: true }).click();
+	await plPage.getByRole('button', { name: /^(Language|Język)/ }).click();
+	await plPage.getByRole('menuitemradio', { name: 'Polski' }).click();
 	await plPage.waitForLoadState('networkidle');
 	await settle(plPage);
 	mobPl = await plPage.screenshot();

@@ -2,7 +2,7 @@
 
 **Self-hosted Secret Santa for families and friend groups — psst… don't tell anyone.**
 Create a party, invite everyone with a code, write the rules together and let the draw do its
-magic. Polish 🇵🇱 and English 🇬🇧.
+magic. Polish 🇵🇱 and English 🇬🇧 — more languages can be added (see below).
 
 ![Party page with a big countdown and a phone showing the unwrapped draw](docs/screenshots/hero.webp)
 
@@ -88,6 +88,18 @@ PW_BASE_URL=http://localhost:8976 PW_ADMIN_PASSWORD=… npx playwright test   # 
 
 UI strings live in `scripts/messages.py` → `python3 scripts/messages.py` regenerates
 `messages/{en,pl}.json`. After changing `src/lib/server/db/schema.ts` run `npm run db:generate`.
+
+### Adding a language
+
+The header has a language drop-down (flag + the language's own name), filled from
+`src/lib/languages.ts`. To add e.g. German:
+
+1. add `"de"` to `locales` in `project.inlang/settings.json`;
+2. append `"de"` to `LANGS` in `scripts/messages.py`, add a German column to every entry and
+   run `python3 scripts/messages.py`;
+3. add a `de` entry (native name, flag, Intl tag, quotation marks) to `LANGUAGES` in
+   `src/lib/languages.ts` and a flag SVG to `static/flags/` — `npm run check` fails until the
+   entry exists.
 
 Screenshots are generated from demo data by `scripts/screenshots.mjs` (see the header of the
 file for how to run it).

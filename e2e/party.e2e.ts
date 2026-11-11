@@ -161,7 +161,8 @@ test('full party lifecycle', async ({ browser }) => {
 
 	// --- language switch
 	await admin.goto(partyUrl);
-	await admin.getByRole('button', { name: 'pl', exact: true }).click();
+	await admin.getByRole('button', { name: /^Language/ }).click();
+	await admin.getByRole('menuitemradio', { name: 'Polski' }).click();
 	await expect(admin.getByRole('heading', { name: 'Regulamin' })).toBeVisible();
 	await expect(admin.getByText('Nie kupujemy: alcohol.')).toBeVisible();
 });

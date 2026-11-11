@@ -1,6 +1,7 @@
 import { m } from '#lib/paraglide/messages.js';
 import { getLocale } from '#lib/paraglide/runtime.js';
 import { formatDateTime, fromInputValue } from '#lib/time.ts';
+import { language } from '#lib/languages.ts';
 
 export type RuleValue = Record<string, string>;
 
@@ -30,7 +31,7 @@ const money = (amount: string, currency: string) => {
 	const n = Number(amount);
 	if (!Number.isFinite(n)) return `${amount} ${currency}`;
 	try {
-		return new Intl.NumberFormat(getLocale() === 'pl' ? 'pl-PL' : 'en-GB', {
+		return new Intl.NumberFormat(language().intl, {
 			style: 'currency',
 			currency,
 			maximumFractionDigits: n % 1 === 0 ? 0 : 2

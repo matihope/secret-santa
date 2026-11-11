@@ -70,36 +70,35 @@
 		<!-- cheeks -->
 		<circle cx="32" cy="90" r="5" fill="#ff8a8a" opacity=".45" />
 		<circle cx="88" cy="90" r="5" fill="#ff8a8a" opacity=".45" />
-		<!-- mouth "o" behind the finger -->
-		<ellipse cx="60" cy="92" rx="11" ry="5" fill="#5a1016" /><ellipse
-			cx="60"
-			cy="93.5"
-			rx="6"
-			ry="2"
-			fill="#e05a66"
-		/>
-		<!-- shh! mitten finger -->
-		<g class="finger">
-			<rect
-				x="55.75"
-				y="77"
-				width="8.5"
-				height="27"
-				rx="4.25"
-				fill="#fffdf8"
+		<!-- zipped mouth: lips sealed -->
+		<g class="zip">
+			<path
+				d="M42 91 Q 60 98 78 90"
 				stroke="#2b1d17"
-				stroke-width="1.6"
+				stroke-width="6"
+				fill="none"
+				stroke-linecap="round"
 			/>
-			<rect
-				x="50.5"
-				y="100"
-				width="19"
-				height="12"
-				rx="6"
-				fill="#24523d"
-				stroke="#2b1d17"
-				stroke-width="1.6"
+			<path
+				d="M42 91 Q 60 98 78 90"
+				stroke="#e9c36a"
+				stroke-width="2.6"
+				stroke-dasharray="1.8 2.2"
+				fill="none"
 			/>
+			<g class="pull">
+				<circle cx="79" cy="90" r="3" fill="#e9c36a" stroke="#2b1d17" stroke-width="1.6" />
+				<rect
+					x="76"
+					y="92"
+					width="6"
+					height="10"
+					rx="2.5"
+					fill="#e9c36a"
+					stroke="#2b1d17"
+					stroke-width="1.6"
+				/>
+			</g>
 		</g>
 	</g>
 </svg>
@@ -114,6 +113,26 @@
 	}
 	.animated .pupils {
 		animation: shifty 4s ease-in-out infinite;
+	}
+	.animated .pull {
+		transform-origin: 79px 90px;
+		animation: swing 3.2s ease-in-out infinite;
+	}
+	@keyframes swing {
+		0%,
+		72%,
+		100% {
+			transform: rotate(0);
+		}
+		78% {
+			transform: rotate(18deg);
+		}
+		86% {
+			transform: rotate(-14deg);
+		}
+		94% {
+			transform: rotate(6deg);
+		}
 	}
 	@keyframes shifty {
 		0%,
@@ -147,7 +166,8 @@
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.animated .body,
-		.animated .pupils {
+		.animated .pupils,
+		.animated .pull {
 			animation: none;
 		}
 	}

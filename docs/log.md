@@ -47,3 +47,15 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
 - Clarified the `gift_count` rule: everyone still draws ONE person and prepares N gifts for
   them (old wording "Each person gives N gifts" read like giving to N people). Unit tests in
   `src/lib/rules/catalog.spec.ts` cover the sentence and Polish plurals.
+
+## 2026-11-11 — logo + language picker
+
+- Logo/favicon: the "shh" mitten finger could be read as rude, replaced with a zipped mouth
+  (lips sealed) whose pull tab swings with the wiggle animation.
+- Language switch is now a drop-down (`LangSwitch.svelte`, ARIA menu with menuitemradio,
+  arrow keys / Escape) showing a flag + native name. Flags are SVGs in `static/flags/` (emoji
+  flags don't render on Windows); the name is primary, the flag decorative.
+- `src/lib/languages.ts` is the per-language registry (name, flag, Intl tag, quotes) typed as
+  `Record<Locale, …>`; time/currency formatting and rule quotes use it instead of `=== 'pl'`.
+  `scripts/messages.py` has `LANGS` and asserts every entry has all columns.
+

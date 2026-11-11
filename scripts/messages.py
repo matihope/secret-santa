@@ -1,5 +1,7 @@
 """Source of truth for UI strings. Run `python3 scripts/messages.py` to regenerate messages/*.json.
-Each entry: key: (english, polish)."""
+Each entry: key: (english, polish) — one column per language in LANGS order.
+To add a language: append its code to LANGS, add a column to every entry, then see
+src/lib/languages.ts."""
 import json, pathlib
 
 M = {
@@ -8,6 +10,7 @@ M = {
  "app_tagline": ("psst… don't tell anyone", "ćśś… nikomu ani słowa"),
  "footer": ("Made with 🎄 for families who can keep a secret", "Zrobione z 🎄 dla rodzin, które umieją dochować tajemnicy"),
  "site_admin": ("Site admin", "Administrator strony"),
+ "language": ("Language", "Język"),
  "error_404": ("This present got lost somewhere under the tree.", "Ten prezent zgubił się gdzieś pod choinką."),
  "error_generic": ("Something went wrong. The elves are on it.", "Coś poszło nie tak. Elfy już nad tym pracują."),
  "go_home": ("Back home", "Wróć na start"),
@@ -314,7 +317,10 @@ M = {
 }
 
 root = pathlib.Path(__file__).resolve().parent.parent / "messages"
-for i, lang in enumerate(["en", "pl"]):
+LANGS = ["en", "pl"]
+for k, v in M.items():
+    assert len(v) == len(LANGS), f"{k}: expected {len(LANGS)} translations"
+for i, lang in enumerate(LANGS):
     data = {"$schema": "https://inlang.com/schema/inlang-message-format"}
     data.update({k: v[i] for k, v in M.items()})
     (root / f"{lang}.json").write_text(json.dumps(data, ensure_ascii=False, indent="\t") + "\n")
