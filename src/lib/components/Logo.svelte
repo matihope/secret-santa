@@ -28,20 +28,22 @@
 		<rect x="16" y="45" width="88" height="15" rx="5" fill="#c62c38" />
 		<rect x="52" y="45" width="16" height="15" fill="#e9c36a" />
 		<!-- santa hat, slightly askew -->
-		<g transform="rotate(-9 60 44)">
-			<path
-				d="M30 46 C 34 22, 52 8, 74 10 C 88 11, 98 20, 100 32 C 92 26, 84 24, 78 28 C 82 34, 86 40, 90 46 Z"
-				fill="#b4232f"
-			/>
-			<path
-				d="M78 28 C 84 24, 92 26, 100 32"
-				stroke="#8f1a24"
-				stroke-width="2"
-				fill="none"
-				opacity=".6"
-			/>
-			<rect x="24" y="40" width="72" height="12" rx="6" fill="#fffdf8" />
-			<circle cx="101" cy="34" r="7.5" fill="#fffdf8" />
+		<g class="hat">
+			<g transform="rotate(-9 60 44)">
+				<path
+					d="M30 46 C 34 22, 52 8, 74 10 C 88 11, 98 20, 100 32 C 92 26, 84 24, 78 28 C 82 34, 86 40, 90 46 Z"
+					fill="#b4232f"
+				/>
+				<path
+					d="M78 28 C 84 24, 92 26, 100 32"
+					stroke="#8f1a24"
+					stroke-width="2"
+					fill="none"
+					opacity=".6"
+				/>
+				<rect x="24" y="40" width="72" height="12" rx="6" fill="#fffdf8" />
+				<circle cx="101" cy="34" r="7.5" fill="#fffdf8" />
+			</g>
 		</g>
 		<!-- bandit mask: a secret agent of gifts -->
 		<path
@@ -86,6 +88,29 @@
 	}
 	.animated .pupils {
 		animation: shifty 4s ease-in-out infinite;
+	}
+	.animated .hat {
+		transform-origin: 60px 50px;
+		animation: hop 3.2s ease-in-out infinite;
+	}
+	@keyframes hop {
+		0%,
+		72%,
+		100% {
+			transform: none;
+		}
+		77% {
+			transform: translateY(-6px) rotate(-7deg);
+		}
+		83% {
+			transform: translateY(-2px) rotate(6deg);
+		}
+		89% {
+			transform: translateY(-1px) rotate(-3deg);
+		}
+		95% {
+			transform: rotate(1deg);
+		}
 	}
 	.animated .ties {
 		transform-origin: 96px 72px;
@@ -140,6 +165,7 @@
 	@media (prefers-reduced-motion: reduce) {
 		.animated .body,
 		.animated .pupils,
+		.animated .hat,
 		.animated .ties {
 			animation: none;
 		}

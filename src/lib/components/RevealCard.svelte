@@ -3,8 +3,9 @@
 	import { displayName, fullName, type NamedMember } from '#lib/names.ts';
 	import Avatar from './Avatar.svelte';
 
-	let { receiver }: { receiver: NamedMember & { avatar: string | null; wishlist: string } } =
-		$props();
+	let {
+		receiver
+	}: { receiver: NamedMember & { id: string; avatar: string | null; wishlist: string } } = $props();
 	let open = $state(false);
 </script>
 

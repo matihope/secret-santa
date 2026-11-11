@@ -68,3 +68,13 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
   :4174 with fresh `data-shots/` → capture → server shutdown.
 - Logo: owner picked the "bandit mask" candidate out of 10 (gift in a Santa hat wearing a
   domino mask with fluttering ties, shifty eyes, sly smile). Replaces the zipper mouth.
+- Logo hat hops and tilts after the wiggle (own `.hat` group; the inner group keeps the static
+  -9° tilt because a CSS transform would override the `transform` attribute).
+- Home-screen icons: `npm run icons` (`scripts/icons.mjs`) renders opaque PNGs on pine from
+  the favicon — `apple-touch-icon.png` (iOS ignores SVG), 192/512 + maskable for the
+  manifest. Manifest uses `display: "browser"` on purpose: a standalone home-screen app on iOS
+  gets its own cookie jar, so people would have to re-enter the party code and log in again.
+- Members without a photo get a generated cartoon person (`src/lib/avatar-art.ts`, seeded by
+  member id, so the face is stable across renames) instead of coloured initials. Same
+  generator draws the README demo avatars (`scripts/screenshots.mjs` imports the .ts file via
+  Node type stripping).

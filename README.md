@@ -101,6 +101,9 @@ The header has a language drop-down (flag + the language's own name), filled fro
    `src/lib/languages.ts` and a flag SVG to `static/flags/` — `npm run check` fails until the
    entry exists.
 
+Home-screen icons (`static/apple-touch-icon.png`, `static/icon-*.png`) are rendered from
+`src/lib/assets/favicon.svg` by `npm run icons` — rerun it after changing the logo.
+
 Screenshots are generated from demo data: `npm run screenshots` builds the app, seeds a
 throwaway instance through the UI and rewrites `docs/screenshots/*.webp`.
 

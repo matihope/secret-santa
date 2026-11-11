@@ -32,6 +32,7 @@ before larger changes; append to the log when you finish a chunk of work.
 - `npx vitest run` — unit tests (`*.spec.ts`)
 - `npx playwright test` — e2e in `e2e/` (builds + previews on 4173 with `data-e2e/`);
   `PW_BASE_URL=… PW_ADMIN_PASSWORD=…` targets a running instance instead
+- `npm run icons` — re-render iPhone/Android home-screen icons from `src/lib/assets/favicon.svg`
 - `npm run screenshots` — regenerate README screenshots (build + throwaway preview + capture)
 - `docker compose up -d --build` — production (port 8976)
 
@@ -54,4 +55,6 @@ before larger changes; append to the log when you finish a chunk of work.
 - All user-facing text goes through Paraglide (pl + en).
 - Never expose assignments to admins in the UI.
 - Wishlists in admin views are obscured until "Reveal" is clicked.
+- Logo lives in two places: `Logo.svelte` (animated) and `src/lib/assets/favicon.svg` (static
+  copy) — keep them in sync, then `npm run icons`.
 - Times: UTC in DB, convert with `src/lib/time.ts` using the `TIMEZONE` env.

@@ -9,6 +9,7 @@ import { chromium } from '@playwright/test';
 import sharp from 'sharp';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { avatarSvg } from '../src/lib/avatar-art.ts';
 
 const BASE = process.argv.slice(2).find((a) => a.startsWith('http')) ?? 'http://localhost:4174';
 const OUT = 'docs/screenshots';
@@ -18,34 +19,7 @@ mkdirSync(TMP, { recursive: true });
 
 /* ---------- cartoon avatars ---------- */
 
-function avatarSvg({ bg, skin, hair, style, shirt, glasses, hat, beard }) {
-	const hairBack =
-		style === 'long'
-			? `<ellipse cx="160" cy="175" rx="92" ry="105" fill="${hair}"/>`
-			: style === 'bun'
-				? `<circle cx="160" cy="62" r="34" fill="${hair}"/>`
-				: '';
-	const hairTop =
-		style === 'bald'
-			? `<path d="M88 150 q-6 -30 10 -40 M232 150 q6 -30 -10 -40" stroke="${hair}" stroke-width="16" stroke-linecap="round" fill="none"/>`
-			: `<path d="M86 150 C 84 85, 130 62, 160 62 C 200 62, 238 85, 234 150 C 220 112, 190 100, 160 104 C 128 100, 100 115, 86 150 Z" fill="${hair}"/>`;
-	return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
-	<rect width="320" height="320" fill="${bg}"/>
-	<path d="M40 330 C 50 250, 110 228, 160 228 C 210 228, 270 250, 280 330 Z" fill="${shirt}"/>
-	${hairBack}
-	<rect x="140" y="196" width="40" height="40" rx="12" fill="${skin}"/>
-	<ellipse cx="160" cy="150" rx="74" ry="80" fill="${skin}"/>
-	<circle cx="86" cy="158" r="12" fill="${skin}"/><circle cx="234" cy="158" r="12" fill="${skin}"/>
-	${hairTop}
-	<circle cx="132" cy="152" r="8" fill="#2b1d17"/><circle cx="188" cy="152" r="8" fill="#2b1d17"/>
-	<circle cx="134.5" cy="149.5" r="2.5" fill="#fff"/><circle cx="190.5" cy="149.5" r="2.5" fill="#fff"/>
-	<circle cx="114" cy="180" r="11" fill="#ff8a8a" opacity=".45"/><circle cx="206" cy="180" r="11" fill="#ff8a8a" opacity=".45"/>
-	${beard ? `<path d="M100 170 C 105 250, 215 250, 220 170 C 200 200, 120 200, 100 170 Z" fill="#f4f1ea"/><path d="M134 192 q26 -14 52 0" stroke="#e8e2d6" stroke-width="10" fill="none" stroke-linecap="round"/>` : `<path d="M138 188 q22 20 44 0" stroke="#7a2a22" stroke-width="6" fill="none" stroke-linecap="round"/>`}
-	${glasses ? `<g fill="none" stroke="#2b1d17" stroke-width="5"><circle cx="132" cy="152" r="20"/><circle cx="188" cy="152" r="20"/><path d="M152 150 h16"/></g>` : ''}
-	${hat ? `<path d="M80 108 C 100 40, 170 10, 230 40 C 250 50, 262 70, 262 92 C 240 80, 220 80, 210 92 C 220 96, 232 102, 240 110 Z" fill="#b4232f"/><rect x="74" y="98" width="172" height="24" rx="12" fill="#fffdf8"/><circle cx="262" cy="96" r="16" fill="#fffdf8"/>` : ''}
-</svg>`;
-}
-
+// Uploaded as photos. Members without an entry here keep the generated avatar.
 const AVATARS = {
 	mateusz: {
 		bg: '#e9c36a',
@@ -54,15 +28,6 @@ const AVATARS = {
 		style: 'short',
 		shirt: '#17382a',
 		hat: true
-	},
-	ania: { bg: '#cfe3d6', skin: '#f6d2b8', hair: '#a0522d', style: 'long', shirt: '#b4232f' },
-	kuba: {
-		bg: '#f3d9d9',
-		skin: '#eac0a0',
-		hair: '#2e2420',
-		style: 'short',
-		shirt: '#24523d',
-		glasses: true
 	},
 	hela: {
 		bg: '#efe4cf',
@@ -243,7 +208,6 @@ if (!COMPOSE_ONLY) {
 			first: 'Anna',
 			last: 'Kowalska',
 			nick: 'Ania',
-			avatar: 'ania',
 			wishlist: 'A cosy scarf (green!), a crime novel, good coffee beans.'
 		},
 		{
@@ -251,7 +215,6 @@ if (!COMPOSE_ONLY) {
 			first: 'Jakub',
 			last: 'Nowak',
 			nick: 'Kuba',
-			avatar: 'kuba',
 			wishlist: 'Anything for my bike, or a puzzle with 1000+ pieces.'
 		},
 		{
