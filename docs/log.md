@@ -59,3 +59,6 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
   `Record<Locale, …>`; time/currency formatting and rule quotes use it instead of `=== 'pl'`.
   `scripts/messages.py` has `LANGS` and asserts every entry has all columns.
 
+- App name is a brand constant (`src/lib/brand.ts`, "Secret Santa" in every language) instead
+  of the `app_name` message; Polish no longer shows "Tajny Mikołaj" as the title. Descriptive
+  Polish text (e.g. "Impreza Tajnego Mikołaja", rules) still uses the Polish term.

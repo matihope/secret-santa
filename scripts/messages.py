@@ -6,7 +6,6 @@ import json, pathlib
 
 M = {
  # app
- "app_name": ("Secret Santa", "Tajny Mikołaj"),
  "app_tagline": ("psst… don't tell anyone", "ćśś… nikomu ani słowa"),
  "footer": ("Made with 🎄 for families who can keep a secret", "Zrobione z 🎄 dla rodzin, które umieją dochować tajemnicy"),
  "site_admin": ("Site admin", "Administrator strony"),

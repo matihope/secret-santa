@@ -1,4 +1,4 @@
-# Secret Santa 🎅 (Tajny Mikołaj)
+# Secret Santa 🎅
 
 **Self-hosted Secret Santa for families and friend groups — psst… don't tell anyone.**
 Create a party, invite everyone with a code, write the rules together and let the draw do its

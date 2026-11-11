@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { APP_NAME } from '#lib/brand.ts';
 	import { enhance } from '$app/forms';
 	import { m } from '#lib/paraglide/messages.js';
 	import { errorText } from '#lib/errors.ts';
@@ -85,7 +86,7 @@
 	const error = $derived(localError || (form?.error ?? ''));
 </script>
 
-<svelte:head><title>{m.create_party()} · {m.app_name()}</title></svelte:head>
+<svelte:head><title>{m.create_party()} · {APP_NAME}</title></svelte:head>
 
 <div class="mx-auto max-w-2xl pt-4">
 	<p class="eyebrow">{m.create_party()}</p>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { m } from '#lib/paraglide/messages.js';
+	import { APP_NAME } from '#lib/brand.ts';
 	let {
 		size = 48,
 		animated = true,
@@ -14,7 +14,7 @@
 	class="logo {klass}"
 	class:animated
 	role="img"
-	aria-label={m.app_name()}
+	aria-label={APP_NAME}
 >
 	<!-- shadow -->
 	<ellipse cx="60" cy="112" rx="40" ry="5" fill="#2b1d17" opacity=".15" />

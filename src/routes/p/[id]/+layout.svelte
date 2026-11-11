@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { APP_NAME } from '#lib/brand.ts';
 	import { m } from '#lib/paraglide/messages.js';
 	import { page } from '$app/state';
 	import Avatar from '#lib/components/Avatar.svelte';
@@ -16,7 +17,7 @@
 	);
 </script>
 
-<svelte:head><title>{data.party.name} · {m.app_name()}</title></svelte:head>
+<svelte:head><title>{data.party.name} · {APP_NAME}</title></svelte:head>
 
 {#if data.access}
 	<nav class="mb-6 flex flex-wrap items-center justify-between gap-3">

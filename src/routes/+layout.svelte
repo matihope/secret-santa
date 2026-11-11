@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { APP_NAME } from '#lib/brand.ts';
 	import './layout.css';
 	import favicon from '#lib/assets/favicon.svg';
 	import Logo from '#lib/components/Logo.svelte';
@@ -11,7 +12,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>{m.app_name()}</title>
+	<title>{APP_NAME}</title>
 	<meta name="theme-color" content="#17382a" />
 </svelte:head>
 
@@ -22,7 +23,7 @@
 			<span class="leading-none">
 				<span
 					class="block font-display text-xl font-black text-pine sm:text-2xl"
-					style="font-variation-settings:'SOFT' 100,'WONK' 1">{m.app_name()}</span
+					style="font-variation-settings:'SOFT' 100,'WONK' 1">{APP_NAME}</span
 				>
 				<span class="block text-[0.7rem] font-semibold tracking-wider text-berry"
 					>{m.app_tagline()}</span

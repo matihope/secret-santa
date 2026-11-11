@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { APP_NAME } from '#lib/brand.ts';
 	import { enhance } from '$app/forms';
 	import { m } from '#lib/paraglide/messages.js';
 	import { getLocale } from '#lib/paraglide/runtime.js';
@@ -11,7 +12,7 @@
 	let { data, form }: PageProps = $props();
 </script>
 
-<svelte:head><title>{m.site_admin()} · {m.app_name()}</title></svelte:head>
+<svelte:head><title>{m.site_admin()} · {APP_NAME}</title></svelte:head>
 
 {#if !data.loggedIn}
 	<div class="mx-auto max-w-sm pt-8 text-center">
