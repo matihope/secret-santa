@@ -1,8 +1,41 @@
 # Secret Santa 🎅 (Tajny Mikołaj)
 
-Self-hosted Secret Santa manager for families and friend groups. Polish and English.
+**Self-hosted Secret Santa for families and friend groups — psst… don't tell anyone.**
+Create a party, invite everyone with a code, write the rules together and let the draw do its
+magic. Polish 🇵🇱 and English 🇬🇧.
 
-## Features
+![Party page with a big countdown and a phone showing the unwrapped draw](docs/screenshots/hero.webp)
+
+## Why it's nice
+
+- 🔑 **One code, no accounts.** Every party has a _Christmas Party Code_. Family members type it
+  in, pick a name, optionally set a passcode — done. No e-mails, no sign-ups.
+- 📜 **Rules written for you.** A short questionnaire (budget? secret until the party? anything
+  not to buy? signed gifts?) turns into a nicely worded statute. Anything that doesn't apply
+  simply isn't there. Tweak, reorder or add your own rules any time.
+- ⏳ **A big countdown and an automatic draw.** At the set time everyone gets their person — or
+  the organiser presses _Draw now_.
+- 💑 **Couples won't draw each other.** Ask not to draw someone; once they accept, it works both
+  ways.
+- 🎁 **Unwrap your result.** Your person, their photo and their wishlist, hidden until you tap.
+- 🙈 **No spoilers for the organiser.** Admins can edit everything, but wishlists stay hidden
+  behind _Reveal_ and nobody — not even the admin — can see who drew whom.
+
+![Questionnaire turning answers into rules](docs/screenshots/wizard-questions.webp)
+
+![Rule builder next to the rendered statute](docs/screenshots/rules.webp)
+
+On the phone — wrapped, unwrapped, and in Polish:
+
+![Three phone screens: wrapped gift, revealed person with wishlist, Polish party page](docs/screenshots/mobile.webp)
+
+Organiser view — wishlists stay hidden until you really need them:
+
+![Admin participant list with obscured wishlists](docs/screenshots/admin-members.webp)
+
+![Home page with the party code box and party list](docs/screenshots/home.webp)
+
+## All features
 
 - **Parties behind a code** — every party has a "Christmas Party Code" (random like `K7QM-4XPA`
   or chosen by the admin). The home page lists public parties (name + date only) and the parties
@@ -34,8 +67,8 @@ owned by uid 1000. Migrations run automatically on start.
 
 ### Nginx Proxy Manager
 
-Proxy host `santa.example.com` → `http://<server-lan-ip>:8976`, with the `*.example.com` certificate
-and Force SSL. Avatars are resized server-side (uploads up to 10 MB), so the default body-size
+Add a proxy host for your domain (e.g. `santa.example.com`) → `http://<server-lan-ip>:8976`,
+with an SSL certificate and Force SSL. Avatars are resized server-side (uploads up to 10 MB), so the default body-size
 limit is fine.
 
 `ORIGIN` in `.env` must match the public URL, otherwise form submissions are rejected
@@ -55,5 +88,8 @@ PW_BASE_URL=http://localhost:8976 PW_ADMIN_PASSWORD=… npx playwright test   # 
 
 UI strings live in `scripts/messages.py` → `python3 scripts/messages.py` regenerates
 `messages/{en,pl}.json`. After changing `src/lib/server/db/schema.ts` run `npm run db:generate`.
+
+Screenshots are generated from demo data by `scripts/screenshots.mjs` (see the header of the
+file for how to run it).
 
 See `CLAUDE.md`, `docs/decisions.md` and `docs/log.md` for architecture notes.

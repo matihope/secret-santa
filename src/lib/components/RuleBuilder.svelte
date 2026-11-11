@@ -2,6 +2,7 @@
 	import { RULES, RULES_BY_TYPE, ruleSentence, type RuleEntry } from '#lib/rules/catalog.ts';
 	import { m } from '#lib/paraglide/messages.js';
 	import { TIMEZONE } from '$app/env/public';
+	import { getLocale } from '#lib/paraglide/runtime.js';
 	import RuleValueInput from './RuleValueInput.svelte';
 
 	let {
@@ -14,6 +15,7 @@
 		RULES.filter((r) => r.type === 'custom' || !rules.some((x) => x.type === r.type))
 	);
 	let adding = $state('');
+	const [open, close] = getLocale() === 'pl' ? ['„', '”'] : ['“', '”'];
 
 	function add() {
 		const def = RULES_BY_TYPE.get(adding);
@@ -43,7 +45,7 @@
 							<RuleValueInput {def} bind:value={rule.value} {currency} />
 						{/if}
 						<p class="font-display text-[1.05rem] leading-snug text-pine italic">
-							„{ruleSentence(rule, { currency, tz: TIMEZONE })}”
+							{open}{ruleSentence(rule, { currency, tz: TIMEZONE })}{close}
 						</p>
 					</div>
 					<div class="flex shrink-0 flex-col gap-1">

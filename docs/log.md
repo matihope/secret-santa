@@ -13,7 +13,7 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
   add-ons: prettier, vitest (unit), playwright, tailwind v4 (+forms), adapter-node, drizzle
   (sqlite, better-sqlite3), paraglide (pl base, en).
 - Deploy pattern copied from `~/code/video-player`: publish a host port (8976), Nginx Proxy
-  Manager proxies `santa.example.com` → `http://<server-lan-ip>:8976`, `.env` + `.env.example`,
+  Manager proxies the public domain → `http://<server-lan-ip>:8976`, `.env` + `.env.example`,
   container user uid 1000, data in `./data`.
 - Server core written: schema, auth (sessions, signed code-access cookies, rate limit),
   draw algorithm (TDD, `src/lib/server/draw.spec.ts`), rule catalog, party service.
@@ -33,11 +33,13 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
 
 ## 2026-11-11 — deployed
 
-- Production `.env` written (random `SITE_ADMIN_PASSWORD`, `ORIGIN=https://santa.example.com`,
+- Production `.env` written (random `SITE_ADMIN_PASSWORD`, `ORIGIN` = public URL,
   `ADDRESS_HEADER=X-Forwarded-For`), `docker compose up -d --build`, container on :8976.
-- Owner added NPM proxy host `santa.example.com` → `http://<server-lan-ip>:8976` with the
-  `*.example.com` cert. Verified over public HTTPS: valid cert + HTTP/2, form POSTs pass the
+- Owner added the NPM proxy host → `http://<server-lan-ip>:8976` with their wildcard cert. Verified over public HTTPS: valid cert + HTTP/2, form POSTs pass the
   origin check, cookies `Secure; HttpOnly; SameSite=Lax`, 7.9 MB photo upload goes through
   NPM and is resized; throwaway test party deleted afterwards (DB left empty).
-- Note: public port 80 times out for every example.com host (same for `tv`), so the HTTP→HTTPS
+- Note: public port 80 times out for every host on the owner's domain (not app-specific), so the HTTP→HTTPS
   redirect can't be observed from outside; on the LAN :80 serves plain HTTP for both hosts.
+
+- Owner's domain and LAN IP must not appear in the (public) repo — use placeholders like
+  `santa.example.com` / `<server-lan-ip>`. Real values live only in the local `.env`.

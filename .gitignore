@@ -33,3 +33,4 @@ project.inlang/cache/
 /data
 /data-e2e
 /playwright-report
+/data-shots

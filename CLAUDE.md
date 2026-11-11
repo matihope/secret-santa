@@ -47,6 +47,9 @@ before larger changes; append to the log when you finish a chunk of work.
 
 ## Conventions
 
+- **Repo is public: never commit the owner's domain, IPs or other infra details.** Use
+  placeholders (`santa.example.com`, `<server-lan-ip>`); real values stay in the local `.env`.
+
 - All user-facing text goes through Paraglide (pl + en).
 - Never expose assignments to admins in the UI.
 - Wishlists in admin views are obscured until "Reveal" is clicked.
