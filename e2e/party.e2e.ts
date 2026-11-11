@@ -153,6 +153,23 @@ test('full party lifecycle', async ({ browser }) => {
 	const santaPage = { Mateusz: admin, Anna: anna, Bob: bob, Celina: celina }[annaSanta]!;
 	await expect(santaPage.getByText('Warm socks')).toBeVisible();
 
+	// iPhone outside Safari: notifications need the home-screen app, which only Safari can add
+	const iphone = await browser.newContext({
+		locale: 'en-US',
+		userAgent:
+			'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/131.0.6778.73 Mobile/15E148 Safari/604.1'
+	});
+	await iphone.addInitScript(() => {
+		delete (window as { PushManager?: unknown }).PushManager; // as in iOS Safari outside the app
+	});
+	await iphone.addCookies(await anna.context().cookies());
+	const ios = await iphone.newPage();
+	await ios.goto(`${partyUrl}/me`);
+	await expect(ios.getByText(/only Safari can add it/)).toBeVisible();
+	await expect(ios.getByText(/different browser/)).toBeVisible();
+	await expect(ios.getByRole('button', { name: /Copy link/ })).toBeVisible();
+	await iphone.close();
+
 	// joining is closed now
 	const late = await (await browser.newContext({ locale: 'en-US' })).newPage();
 	await late.goto('/');

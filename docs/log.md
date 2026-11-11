@@ -111,3 +111,10 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
 - `e2e/theme.e2e.ts` covers device following, the switch, reload, cookie and the lock tag.
   `npm run screenshots` now also writes `docs/screenshots/dark.webp` plus `data-shots/tmp/dark-*.png`
   review shots of other pages.
+
+## 2026-11-11 — iPhone: Add to Home Screen only from Safari
+
+- Owner noted that on iPhone only Safari can add the app to the home screen. The notifications
+  hint on _My profile_ now says to open the page in Safari; when the user agent shows another
+  browser (Chrome/Firefox/Edge/Opera/DuckDuckGo/Google app/in-app browsers, or Brave via
+  `navigator.brave`) it adds a line saying so and a "Copy link" button.

@@ -63,8 +63,8 @@ After dark — follows the device, or pick light/dark with the switch in the hea
 - **Push notifications** (turn on in _My profile_): when the draw happens, a day before the draw
   (with a nudge if your wishlist is empty) and the party, and when the person you drew updates
   their wishlist — without ever naming them on the lock screen. Works in Chrome/Firefox/Edge and
-  on iPhone once the app is added to the Home Screen (iOS 16.4+).
-- **Add to Home Screen** on iPhone/Android gives a proper icon and opens full screen like an
+  on iPhone once the app is added to the Home Screen (iOS 16.4+, and only Safari can add it).
+- **Add to Home Screen** (on iPhone: from Safari, other browsers can't) gives a proper icon and opens full screen like an
   app (on iOS you log in once more inside the app — it doesn't share Safari's cookies).
 - **Dark theme** — follows the device by default; the ◐ switch in the header cycles
   automatic → light → dark (remembered per browser). Dark Reader users: the extension

@@ -9,6 +9,8 @@
 	let status = $state<State>('loading');
 	let busy = $state(false);
 	let note = $state('');
+	let notSafari = $state(false);
+	let copied = $state(false);
 	let endpoint = '';
 
 	const api = (method: string, body?: unknown, query = '') =>
@@ -26,7 +28,17 @@
 	}
 
 	onMount(async () => {
-		const ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+		const ua = navigator.userAgent;
+		const ios = /iPhone|iPad|iPod/.test(ua);
+		// Only Safari can add a web app to the iPhone home screen. Chrome, Firefox, Edge, Opera,
+		// DuckDuckGo, the Google app and in-app browsers say so in the user agent; Brave doesn't,
+		// but exposes navigator.brave.
+		notSafari =
+			ios &&
+			(/CriOS|FxiOS|EdgiOS|OPiOS|OPT\/|GSA\/|DuckDuckGo|Ddg\/|YaBrowser|FBAN|FBAV|Instagram|Line\/|Snapchat|Twitter/.test(
+				ua
+			) ||
+				'brave' in navigator);
 		const standalone =
 			matchMedia('(display-mode: standalone)').matches ||
 			(navigator as Navigator & { standalone?: boolean }).standalone === true;
@@ -102,7 +114,21 @@
 		{:else if status === 'unsupported'}
 			<p class="text-sm text-ink-soft">{m.push_unsupported()}</p>
 		{:else if status === 'ios-install'}
-			<p class="rounded-2xl bg-paper-2/60 p-3 text-sm">📲 {m.push_ios_install()}</p>
+			<div class="rounded-2xl bg-paper-2/60 p-3 text-sm">
+				<p>📲 {m.push_ios_install()}</p>
+				{#if notSafari}
+					<p class="mt-2 font-semibold">🧭 {m.push_ios_not_safari()}</p>
+					<button
+						type="button"
+						class="mt-2 btn-ghost btn-sm"
+						onclick={async () => {
+							await navigator.clipboard?.writeText(location.href);
+							copied = true;
+							setTimeout(() => (copied = false), 1500);
+						}}>{copied ? '✓' : '📋'} {m.copy_link()}</button
+					>
+				{/if}
+			</div>
 		{:else if status === 'denied'}
 			<p class="error">{m.push_denied()}</p>
 		{:else if status === 'off'}
