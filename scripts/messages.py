@@ -152,6 +152,7 @@ M = {
  "cta_join_text": ("Join the party, write your wishlist and wait for the draw.", "Dołącz, napisz listę życzeń i czekaj na losowanie."),
  "cta_drawn_title": ("The draw is done", "Losowanie zakończone"),
  "cta_drawn_text": ("Log in to see who you're giving a gift to.", "Zaloguj się, by zobaczyć, kogo obdarowujesz."),
+ "guest_hint": ("Dates, place, rules and who's coming are visible once you join or log in.", "Termin, miejsce, regulamin i lista gości będą widoczne po dołączeniu lub zalogowaniu."),
  "join": ("Join the party", "Dołącz do imprezy"),
  "login_existing": ("I'm already in", "Już jestem na liście"),
  "members_title": ("Participants ({count})", "Uczestnicy ({count})"),

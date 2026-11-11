@@ -99,3 +99,13 @@ Web Push.
   the extension.
 - Choice cookie is not httpOnly (the pre-paint script reads it); `+layout.server.ts` passes it
   to the switch so the right icon is server-rendered.
+
+## What a code-only guest sees
+
+- Having the party code (or clicking a public party and entering it) is not membership. Such
+  guests see only the party name and the join / "I'm already in" buttons, plus a note that the
+  rest appears after joining or logging in. Description, dates, location, statute, guest list
+  and the `.ics` export need `insider` (a member of the party or the site admin), and the server
+  does not send those fields to guests at all (`+layout.server.ts`, `+page.server.ts`).
+- The login page still lists members to pick from: that is how you log in, and you already had
+  the code to get there.

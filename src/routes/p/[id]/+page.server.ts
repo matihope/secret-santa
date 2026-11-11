@@ -6,13 +6,17 @@ import { normalizeCode } from '#lib/server/ids.ts';
 import { subscribedEndpoints } from '#lib/server/push.ts';
 import type { Actions, PageServerLoad } from './$types';
 
+const hasMembers = (partyId: string) => getMembers(partyId).length > 0;
+
 export const load: PageServerLoad = (event) => {
-	const { party, me, access } = partyContext(event);
-	if (!access) return { rules: [], members: [], assignment: null };
+	const { party, me, insider } = partyContext(event);
+	if (!insider)
+		return { rules: [], members: [], assignment: null, hasMembers: hasMembers(party.id) };
 	const receiver = me && party.drawnAt ? getAssignment(party.id, me.id) : null;
 	return {
 		rules: getRules(party.id),
 		members: getMembers(party.id).map(publicMember),
+		hasMembers: true,
 		assignment: receiver ? { ...publicMember(receiver), wishlist: receiver.wishlist } : null,
 		created: event.url.searchParams.has('created'),
 		pushOn: me ? subscribedEndpoints(me.id).length > 0 : false

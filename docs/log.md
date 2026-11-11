@@ -129,3 +129,10 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
   (WeChat, LinkedIn, TikTok, Pinterest).
 - Wording softened: "If you don't see Add to Home Screen, open this page in Safari" — iOS 16.4+
   lets some other browsers add to the home screen, but it didn't work on the owner's phone.
+
+## 2026-11-11 — minimal view for code-only guests
+
+- Owner asked for less information on a party page unless logged in. Guests with only the code
+  now get the name + join/login card; details, rules, guest list and calendar export need a
+  member login (or the site admin). See `docs/decisions.md` → "What a code-only guest sees".
+  e2e checks that the page HTML has no location/guest names and `calendar.ics` is 403 for a guest.
