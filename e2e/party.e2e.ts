@@ -153,22 +153,45 @@ test('full party lifecycle', async ({ browser }) => {
 	const santaPage = { Mateusz: admin, Anna: anna, Bob: bob, Celina: celina }[annaSanta]!;
 	await expect(santaPage.getByText('Warm socks')).toBeVisible();
 
-	// iPhone outside Safari: notifications need the home-screen app, which only Safari can add
+	// iPhone outside Safari: notifications need the home-screen app → hint + copy party link.
+	// No PushManager (as in iOS outside the app), no clipboard and no share sheet (as in some
+	// in-app browsers) → the link is offered in a text field to copy by hand.
 	const iphone = await browser.newContext({
 		locale: 'en-US',
 		userAgent:
 			'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/131.0.6778.73 Mobile/15E148 Safari/604.1'
 	});
 	await iphone.addInitScript(() => {
-		delete (window as { PushManager?: unknown }).PushManager; // as in iOS Safari outside the app
+		delete (window as { PushManager?: unknown }).PushManager;
+		Object.defineProperty(Navigator.prototype, 'clipboard', { get: () => undefined });
+		Object.defineProperty(Navigator.prototype, 'share', { get: () => undefined });
 	});
 	await iphone.addCookies(await anna.context().cookies());
 	const ios = await iphone.newPage();
 	await ios.goto(`${partyUrl}/me`);
-	await expect(ios.getByText(/only Safari can add it/)).toBeVisible();
+	await expect(ios.getByText(/open this page in Safari/)).toBeVisible();
 	await expect(ios.getByText(/different browser/)).toBeVisible();
-	await expect(ios.getByRole('button', { name: /Copy link/ })).toBeVisible();
+	await ios.getByRole('button', { name: /Copy party link/ }).click();
+	await expect(ios.getByRole('button', { name: /Copy party link/ })).not.toContainText('✓');
+	await expect(ios.getByLabel('Copy it from here:')).toHaveValue(new URL(partyUrl, ios.url()).href);
 	await iphone.close();
+
+	// iPadOS Safari reports a Mac user agent: still gets the install hint, no "other browser" line
+	const ipad = await browser.newContext({
+		locale: 'en-US',
+		userAgent:
+			'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Safari/605.1.15'
+	});
+	await ipad.addInitScript(() => {
+		delete (window as { PushManager?: unknown }).PushManager;
+		Object.defineProperty(Navigator.prototype, 'maxTouchPoints', { get: () => 5 });
+	});
+	await ipad.addCookies(await anna.context().cookies());
+	const tablet = await ipad.newPage();
+	await tablet.goto(`${partyUrl}/me`);
+	await expect(tablet.getByText(/On iPhone and iPad/)).toBeVisible();
+	await expect(tablet.getByText(/different browser/)).toHaveCount(0);
+	await ipad.close();
 
 	// joining is closed now
 	const late = await (await browser.newContext({ locale: 'en-US' })).newPage();

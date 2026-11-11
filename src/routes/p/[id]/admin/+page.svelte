@@ -8,6 +8,7 @@
 	import { displayName, fullName } from '#lib/names.ts';
 	import { formatDateTime, toInputValue } from '#lib/time.ts';
 	import { CURRENCIES } from '#lib/currencies.ts';
+	import CopyButton from '#lib/components/CopyButton.svelte';
 	import type { RuleEntry } from '#lib/rules/catalog.ts';
 	import Avatar from '#lib/components/Avatar.svelte';
 	import Obscured from '#lib/components/Obscured.svelte';
@@ -42,7 +43,6 @@
 				? { ok: true }
 				: null;
 	const participants = $derived(data.members.filter((x) => x.participates).length);
-	let copied = $state(false);
 </script>
 
 {#snippet feedback(section: string)}
@@ -164,15 +164,7 @@
 				class="rounded-2xl border-2 border-dashed border-gold bg-gold-2/15 px-5 py-3 font-mono text-2xl font-bold tracking-[0.2em]"
 				>{data.admin.code}</span
 			>
-			<button
-				type="button"
-				class="btn-ghost btn-sm"
-				onclick={async () => {
-					await navigator.clipboard?.writeText(data.admin.code);
-					copied = true;
-					setTimeout(() => (copied = false), 1500);
-				}}>{copied ? '✓' : '📋'} {m.copy()}</button
-			>
+			<CopyButton text={data.admin.code} label={m.copy()} />
 		</div>
 		<p class="mt-2 text-sm text-ink-soft">{m.code_share_help()}</p>
 		<form method="POST" action="?/code" class="mt-4 space-y-2" use:enhance={keep}>

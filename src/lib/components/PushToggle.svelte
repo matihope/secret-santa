@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { page } from '$app/state';
 	import { m } from '#lib/paraglide/messages.js';
+	import CopyButton from './CopyButton.svelte';
 
 	let { partyId, vapidKey, endpoints }: { partyId: string; vapidKey: string; endpoints: string[] } =
 		$props();
@@ -10,7 +12,6 @@
 	let busy = $state(false);
 	let note = $state('');
 	let notSafari = $state(false);
-	let copied = $state(false);
 	let endpoint = '';
 
 	const api = (method: string, body?: unknown, query = '') =>
@@ -27,18 +28,14 @@
 		return Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
 	}
 
+	const NOT_SAFARI =
+		/CriOS|FxiOS|EdgiOS|OPiOS|OPT\/|GSA\/|DuckDuckGo|Ddg\/|YaBrowser|FBAN|FBAV|Instagram|Line\/|Snapchat|Twitter|MicroMessenger|LinkedInApp|BytedanceWebview|musical_ly|Pinterest/;
+
 	onMount(async () => {
 		const ua = navigator.userAgent;
-		const ios = /iPhone|iPad|iPod/.test(ua);
-		// Only Safari can add a web app to the iPhone home screen. Chrome, Firefox, Edge, Opera,
-		// DuckDuckGo, the Google app and in-app browsers say so in the user agent; Brave doesn't,
-		// but exposes navigator.brave.
-		notSafari =
-			ios &&
-			(/CriOS|FxiOS|EdgiOS|OPiOS|OPT\/|GSA\/|DuckDuckGo|Ddg\/|YaBrowser|FBAN|FBAV|Instagram|Line\/|Snapchat|Twitter/.test(
-				ua
-			) ||
-				'brave' in navigator);
+		// iPadOS 13+ reports a Mac user agent; a touch screen gives it away.
+		const ios =
+			/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
 		const standalone =
 			matchMedia('(display-mode: standalone)').matches ||
 			(navigator as Navigator & { standalone?: boolean }).standalone === true;
@@ -48,6 +45,9 @@
 			!('Notification' in window)
 		) {
 			status = ios && !standalone ? 'ios-install' : 'unsupported';
+			// Adding to the home screen reliably works from Safari. Other browsers and in-app
+			// browsers mark themselves in the user agent; Brave doesn't, but has navigator.brave.
+			notSafari = status === 'ios-install' && (NOT_SAFARI.test(ua) || 'brave' in navigator);
 			return;
 		}
 		if (Notification.permission === 'denied') {
@@ -118,15 +118,9 @@
 				<p>📲 {m.push_ios_install()}</p>
 				{#if notSafari}
 					<p class="mt-2 font-semibold">🧭 {m.push_ios_not_safari()}</p>
-					<button
-						type="button"
-						class="mt-2 btn-ghost btn-sm"
-						onclick={async () => {
-							await navigator.clipboard?.writeText(location.href);
-							copied = true;
-							setTimeout(() => (copied = false), 1500);
-						}}>{copied ? '✓' : '📋'} {m.copy_link()}</button
-					>
+					<div class="mt-2">
+						<CopyButton text="{page.url.origin}/p/{partyId}" label={m.copy_link()} />
+					</div>
 				{/if}
 			</div>
 		{:else if status === 'denied'}

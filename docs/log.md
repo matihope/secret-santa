@@ -118,3 +118,14 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
   hint on _My profile_ now says to open the page in Safari; when the user agent shows another
   browser (Chrome/Firefox/Edge/Opera/DuckDuckGo/Google app/in-app browsers, or Brave via
   `navigator.brave`) it adds a line saying so and a "Copy link" button.
+
+## 2026-11-11 — review fixes for the Safari hint
+
+- `/code-review` follow-ups: new `CopyButton.svelte` (used for the party code and the Safari
+  hint) shows ✓ only when the clipboard write worked, otherwise falls back to the share sheet,
+  then to a selected text field; timer is cleared. The hint copies the party page link (the
+  `/me` link needs a login Safari doesn't have) and says the code + login are needed there.
+- iPadOS 13+ (Mac user agent + touch) now counts as iOS. More in-app browsers recognised
+  (WeChat, LinkedIn, TikTok, Pinterest).
+- Wording softened: "If you don't see Add to Home Screen, open this page in Safari" — iOS 16.4+
+  lets some other browsers add to the home screen, but it didn't work on the owner's phone.
