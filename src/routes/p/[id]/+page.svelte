@@ -39,28 +39,6 @@
 			<button class="mt-4 btn-pine w-full">{m.enter_party()} →</button>
 		</form>
 	</div>
-{:else if !data.insider}
-	<!-- has the code but isn't a member: name + join/login only -->
-	<div class="mx-auto max-w-md pt-8 text-center">
-		<Logo size={110} class="mx-auto" />
-		<p class="mt-4 eyebrow">{m.party_eyebrow()}</p>
-		<h1 class="mt-2 text-4xl font-black text-pine">{party.name}</h1>
-		<div class="mt-6 card">
-			<p class="font-display text-2xl font-bold text-pine">
-				{party.drawnAt ? m.cta_drawn_title() : m.cta_join_title()}
-			</p>
-			<p class="mt-1 text-ink-soft">{party.drawnAt ? m.cta_drawn_text() : m.cta_join_text()}</p>
-			<div class="mt-4 flex flex-wrap justify-center gap-2">
-				{#if !party.drawnAt && !party.archivedAt}
-					<a href="/p/{party.id}/join" class="btn-primary">🎅 {m.join()}</a>
-				{/if}
-				{#if data.hasMembers}
-					<a href="/p/{party.id}/login" class="btn-ghost">{m.login_existing()}</a>
-				{/if}
-			</div>
-		</div>
-		<p class="mt-4 text-sm text-ink-soft">🔒 {m.guest_hint()}</p>
-	</div>
 {:else}
 	{#if data.created && data.code}
 		<div class="mb-6 animate-rise success text-base">
@@ -100,6 +78,26 @@
 			<RevealCard receiver={data.assignment} />
 		{:else if data.me && party.drawnAt && data.me.participates}
 			<p class="error">{m.no_assignment()}</p>
+		{/if}
+
+		{#if !data.me}
+			<div class="flex flex-col items-center gap-4 card text-center sm:flex-row sm:text-left">
+				<Logo size={64} />
+				<div class="flex-1">
+					<p class="font-display text-2xl font-bold text-pine">
+						{party.drawnAt ? m.cta_drawn_title() : m.cta_join_title()}
+					</p>
+					<p class="text-ink-soft">{party.drawnAt ? m.cta_drawn_text() : m.cta_join_text()}</p>
+				</div>
+				<div class="flex flex-wrap justify-center gap-2">
+					{#if !party.drawnAt && !party.archivedAt}
+						<a href="/p/{party.id}/join" class="btn-primary">🎅 {m.join()}</a>
+					{/if}
+					{#if data.members.length}
+						<a href="/p/{party.id}/login" class="btn-ghost">{m.login_existing()}</a>
+					{/if}
+				</div>
+			</div>
 		{/if}
 
 		<Statute

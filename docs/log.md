@@ -130,9 +130,8 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
 - Wording softened: "If you don't see Add to Home Screen, open this page in Safari" — iOS 16.4+
   lets some other browsers add to the home screen, but it didn't work on the owner's phone.
 
-## 2026-11-11 — minimal view for code-only guests
+## 2026-11-12 — reverted: minimal view for code-only guests
 
-- Owner asked for less information on a party page unless logged in. Guests with only the code
-  now get the name + join/login card; details, rules, guest list and calendar export need a
-  member login (or the site admin). See `docs/decisions.md` → "What a code-only guest sees".
-  e2e checks that the page HTML has no location/guest names and `calendar.ics` is 403 for a guest.
+- Commit 7452a44 (code-only guests see just the party name; details, rules, guest list and
+  calendar export only for members) was reverted at the owner's request. Guests with the party
+  code see the full overview again, as before.

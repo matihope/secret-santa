@@ -19,8 +19,7 @@
 
 <svelte:head><title>{data.party.name} · {APP_NAME}</title></svelte:head>
 
-<!-- code-only guests on the overview have nowhere to switch to; on join/login it leads back -->
-{#if data.insider || (data.access && page.url.pathname !== base)}
+{#if data.access}
 	<nav class="mb-6 flex flex-wrap items-center justify-between gap-3">
 		<div class="flex gap-1 rounded-full border border-ink/10 bg-snow/70 p-1">
 			{#each tabs as tab (tab.href)}

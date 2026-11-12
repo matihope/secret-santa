@@ -46,9 +46,7 @@ before larger changes; append to the log when you finish a chunk of work.
 - `src/routes/` — `/` home, `/new` wizard, `/p/[id]` overview (+ code gate, reveal),
   `/p/[id]/{join,login,me,admin,admin/members/[mid]}`, `/admin` site admin, `/uploads/[file]`
 - Access checks: `src/lib/server/guards.ts` (`requireAccess` / `requireMember` / `requireAdmin`)
-  — call one at the top of every party load/action. `access` = has the code (or is a
-  member/site admin); `insider` = member or site admin. Code-only guests see just the party name
-  and join/login; details, rules, guest list and `calendar.ics` need `insider`.
+  — call one at the top of every party load/action.
 
 ## Conventions
 

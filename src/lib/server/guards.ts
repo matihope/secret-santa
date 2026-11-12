@@ -8,8 +8,6 @@ export type PartyContext = {
 	me: Member | null;
 	siteAdmin: boolean;
 	access: boolean;
-	/** Members and the site admin see the whole party; code-only guests just the name + join/login. */
-	insider: boolean;
 	canAdmin: boolean;
 };
 
@@ -35,14 +33,7 @@ export function partyContext(event: RequestEvent): PartyContext {
 	const siteAdmin = isSiteAdmin(event.cookies);
 	const me = getSessionMember(event.cookies, party.id);
 	const access = siteAdmin || !!me || hasCodeAccess(event.cookies, party);
-	return {
-		party,
-		me,
-		siteAdmin,
-		access,
-		insider: siteAdmin || !!me,
-		canAdmin: siteAdmin || !!me?.isAdmin
-	};
+	return { party, me, siteAdmin, access, canAdmin: siteAdmin || !!me?.isAdmin };
 }
 
 export function requireAccess(event: RequestEvent) {

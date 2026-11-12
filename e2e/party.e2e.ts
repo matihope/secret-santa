@@ -95,21 +95,6 @@ test('full party lifecycle', async ({ browser }) => {
 	await stranger.getByRole('button', { name: /Enter/ }).click();
 	await expect(stranger.getByText('No party with this code')).toBeVisible();
 
-	// --- the code alone shows only the name + join/login, no details
-	const guest = await (await browser.newContext({ locale: 'en-US' })).newPage();
-	await guest.goto('/');
-	await guest.getByLabel('Christmas Party Code').fill(code);
-	await guest.getByRole('button', { name: /Enter/ }).click();
-	await expect(guest.getByRole('heading', { name: 'E2E Christmas' })).toBeVisible();
-	await expect(guest.getByRole('link', { name: /Join the party/ })).toBeVisible();
-	await expect(guest.getByRole('link', { name: /I'm already in/ })).toBeVisible();
-	await expect(guest.getByRole('heading', { name: 'Statute' })).toHaveCount(0);
-	await expect(guest.getByText('Grandma’s house')).toHaveCount(0);
-	await expect(guest.getByText(/Mateusz/)).toHaveCount(0);
-	expect(await guest.content()).not.toContain('Grandma’s house');
-	expect((await guest.request.get(`${partyUrl}/calendar.ics`)).status()).toBe(403);
-	await guest.context().close();
-
 	// --- members join
 	const anna = await joinParty(browser, code, 'Anna', 'anna1234');
 	const bob = await joinParty(browser, code, 'Bob', 'bob12345');

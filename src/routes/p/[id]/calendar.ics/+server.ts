@@ -5,8 +5,8 @@ import { partyContext } from '#lib/server/guards.ts';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = (event) => {
-	const { party, insider } = partyContext(event);
-	if (!insider) error(403, 'forbidden');
+	const { party, access } = partyContext(event);
+	if (!access) error(403, 'forbidden');
 	const { draw, party: main } = partyEvents(party, event.url.origin);
 	const events = [draw, main].filter((e) => !!e);
 	if (!events.length) error(404, 'not_found');
