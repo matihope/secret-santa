@@ -135,3 +135,12 @@ Chronological notes of what was built and why. Newest at the bottom. Agents: app
 - Commit 7452a44 (code-only guests see just the party name; details, rules, guest list and
   calendar export only for members) was reverted at the owner's request. Guests with the party
   code see the full overview again, as before.
+
+## 2026-11-14 — own wishlist hidden on the profile page
+
+- `/me`: a saved wishlist shows as dots with a **Reveal & edit** button (then **Hide**), so
+  nobody reads it over your shoulder. An empty wishlist starts open (nothing to hide; new
+  members are told to write it). The text is bound to state and posted through a hidden input
+  while hidden, so edits survive hiding before Save.
+- Admin member edit page: same binding — hiding the wishlist after editing no longer drops the
+  edit on Save.

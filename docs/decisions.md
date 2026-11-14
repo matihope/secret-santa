@@ -99,3 +99,10 @@ Web Push.
   the extension.
 - Choice cookie is not httpOnly (the pre-paint script reads it); `+layout.server.ts` passes it
   to the switch so the right icon is server-rendered.
+
+## Wishlists are hidden on screen by default
+
+Wishlists are a surprise for the giver, and phones get read over shoulders. Every view that can
+show someone's wishlist outside the reveal card hides it behind a button: admin lists
+(`Obscured`), the admin member editor, and the member's own profile (`/me`, "Reveal & edit").
+The own-profile editor starts open only when the wishlist is empty.

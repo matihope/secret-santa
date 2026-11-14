@@ -188,6 +188,7 @@ M = {
  "wishlist": ("What would you like to get?", "Co chcesz dostać?"),
  "wishlist_ph": ("Warm socks, a good book, anything with cats…", "Ciepłe skarpetki, dobra książka, cokolwiek z kotami…"),
  "wishlist_help": ("Only the person who draws you will see this.", "Zobaczy to tylko osoba, która Cię wylosuje."),
+ "wishlist_hidden": ("Wishlist hidden", "Lista życzeń ukryta"),
  "wishlist_empty": ("empty", "pusta"),
  "exclusion_title": ("Someone you don't want to draw", "Osoba, której nie chcesz wylosować"),
  "exclusion_help": ("Mainly for couples. It works both ways and the other person has to accept.", "Głównie dla par. Działa w obie strony, a druga osoba musi zaakceptować."),

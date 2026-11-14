@@ -11,6 +11,12 @@
 	let { data, form }: PageProps = $props();
 	const me = $derived(data.me!);
 	let uploading = $state(false);
+	// The wishlist stays hidden until asked for — someone may be looking over your shoulder.
+	// An empty one starts open (nothing to hide, and new members are told to write it).
+	// svelte-ignore state_referenced_locally
+	let wish = $state(data.wishlist);
+	// svelte-ignore state_referenced_locally
+	let showWish = $state(!data.wishlist);
 
 	const keep: SubmitFunction =
 		() =>
@@ -95,15 +101,41 @@
 				<input id="nickname" name="nickname" class="input" maxlength="60" value={me.nickname} />
 			</div>
 			<div>
-				<label class="label" for="wishlist">🎁 {m.wishlist()}</label>
-				<textarea
-					id="wishlist"
-					name="wishlist"
-					rows="6"
-					maxlength="4000"
-					class="input"
-					placeholder={m.wishlist_ph()}>{data.wishlist}</textarea
-				>
+				<div class="flex items-center justify-between gap-2">
+					{#if showWish}
+						<label class="label" for="wishlist">🎁 {m.wishlist()}</label>
+					{:else}
+						<span class="label">🎁 {m.wishlist()}</span>
+					{/if}
+					{#if wish}
+						<button
+							type="button"
+							class="mb-1.5 btn-ghost btn-sm"
+							aria-expanded={showWish}
+							onclick={() => (showWish = !showWish)}
+						>
+							{showWish ? m.hide() : m.reveal_and_edit()}
+						</button>
+					{/if}
+				</div>
+				{#if showWish}
+					<textarea
+						id="wishlist"
+						name="wishlist"
+						rows="6"
+						maxlength="4000"
+						class="input"
+						placeholder={m.wishlist_ph()}
+						bind:value={wish}></textarea>
+				{:else}
+					<input type="hidden" name="wishlist" value={wish} />
+					<p
+						class="rounded-2xl bg-paper-2/70 px-4 py-3 tracking-widest text-ink-soft select-none"
+						aria-label={m.wishlist_hidden()}
+					>
+						{'•'.repeat(12)}
+					</p>
+				{/if}
 				<p class="mt-1 text-xs text-ink-soft">{m.wishlist_help()}</p>
 			</div>
 			<button class="btn-pine">{m.save()}</button>

@@ -110,6 +110,20 @@ test('full party lifecycle', async ({ browser }) => {
 	await anna.getByLabel('What would you like to get?').fill('Warm socks');
 	await anna.getByRole('button', { name: 'Save' }).first().click();
 	await expect(anna.getByText('Saved')).toBeVisible();
+	// a saved wishlist is hidden on the next visit until asked for (shoulder surfers)
+	await anna.reload();
+	await expect(anna.getByLabel('Wishlist hidden')).toBeVisible();
+	await expect(anna.getByLabel('What would you like to get?')).toHaveCount(0);
+	await anna.getByRole('button', { name: 'Reveal & edit' }).click();
+	await expect(anna.getByLabel('What would you like to get?')).toHaveValue('Warm socks');
+	// edits survive hiding again before saving
+	await anna.getByLabel('What would you like to get?').fill('Warm socks, tea');
+	await anna.getByRole('button', { name: 'Hide' }).click();
+	await anna.getByRole('button', { name: 'Save' }).first().click();
+	await expect(anna.getByText('Saved')).toBeVisible();
+	await anna.reload();
+	await anna.getByRole('button', { name: 'Reveal & edit' }).click();
+	await expect(anna.getByLabel('What would you like to get?')).toHaveValue('Warm socks, tea');
 
 	// --- couple exclusion: Anna proposes Bob, Bob accepts
 	await anna

@@ -10,6 +10,8 @@
 	let { data, form }: PageProps = $props();
 	const member = $derived(data.member);
 	let showWishlist = $state(false);
+	// svelte-ignore state_referenced_locally
+	let wish = $state(data.member.wishlist);
 	const keep: SubmitFunction =
 		() =>
 		async ({ update }) =>
@@ -91,13 +93,12 @@
 					</button>
 				</div>
 				{#if showWishlist}
-					<textarea name="wishlist" rows="5" maxlength="4000" class="input"
-						>{member.wishlist}</textarea
-					>
+					<textarea name="wishlist" rows="5" maxlength="4000" class="input" bind:value={wish}
+					></textarea>
 				{:else}
-					<input type="hidden" name="wishlist" value={member.wishlist} />
+					<input type="hidden" name="wishlist" value={wish} />
 					<p class="rounded-2xl bg-paper-2/70 px-4 py-3 tracking-widest text-ink-soft select-none">
-						{member.wishlist ? '•'.repeat(12) : m.wishlist_empty()}
+						{wish ? '•'.repeat(12) : m.wishlist_empty()}
 					</p>
 					<p class="mt-1 text-xs text-ink-soft">{m.wishlist_spoiler_note()}</p>
 				{/if}

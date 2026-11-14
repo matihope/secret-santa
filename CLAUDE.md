@@ -55,7 +55,8 @@ before larger changes; append to the log when you finish a chunk of work.
 
 - All user-facing text goes through Paraglide (pl + en).
 - Never expose assignments to admins in the UI.
-- Wishlists in admin views are obscured until "Reveal" is clicked.
+- Wishlists in admin views are obscured until "Reveal" is clicked; the own wishlist on `/me`
+  stays hidden behind "Reveal & edit" (open only when empty).
 - Logo lives in two places: `Logo.svelte` (animated) and `src/lib/assets/favicon.svg` (static
   copy) — keep them in sync, then `npm run icons`.
 - Push: `src/lib/server/push.ts` (VAPID keys in `settings`, delivery), `notifications.ts`
